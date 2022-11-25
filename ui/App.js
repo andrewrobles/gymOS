@@ -52,17 +52,6 @@ const AddExerciseForm = () => {
   );
 }
 
-const Navbar = () => {
-	return (
-		<View>
-		<Button
-		title="Workouts"/>
-		<Button
-		title="Exercises"/>
-		</View>
-	)
-}
-
 const ExerciseView = () => {
 	return <View>
 		<AddExerciseForm/>
@@ -70,21 +59,36 @@ const ExerciseView = () => {
 	</View>
 }
 
+const WorkoutView = () => {
+	return <View>
+		<Text>Workout</Text>
+	</View>
+}
 
+const Navbar = () => {
+	return <View>
+			<Button title="Workouts"/>
+			<Button title="Exercises"/>
+	</View>
+}
 
 export default function App() {
-  return (
-	<View style={styles.container}>
-		<ExerciseView/>
+	const [selectedViewKey, setSelectedViewKey] = useState('exerciseView')
+	const views = {
+		exerciseView: <ExerciseView/>,
+		workoutView: <WorkoutView/>
+	}
+	const selectedView = views[selectedViewKey]
+	return <View style={styles.container}>
+		{selectedView}
 		<Navbar/>	
 	</View>
-  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    margin: 30,
-  },
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		margin: 30,
+	},
 });
