@@ -64,7 +64,7 @@ const ExerciseView = () => {
 	</View>
 }
 
-const ExerciseCheckboxes = () => {
+const ExerciseCheckboxes = (props) => {
 	const [exercises, setExercises] = useState([])
 
 	useEffect(() => {
@@ -79,26 +79,38 @@ const ExerciseCheckboxes = () => {
 
 	const listItems = exercises.map((exercise) => <ExerciseCheckbox 
 		key={exercise.name}
-		exercise={exercise}/>)
+		exercise={exercise}
+		selectedExercises={props.selectedExercises}
+		setSelectedExercises={props.setSelectedExercises}/>)
 	return <View>{listItems}</View>
 }
 
 const ExerciseCheckbox = (props) => {
 	const [isChecked, setChecked] = useState(false)
+	const onValueChange = (checkboxValue) => {
+		setChecked(checkboxValue)
+		if (checkboxValue) {
+			props.selectedExercises.add(props.exercise._id)
+		} else {
+			props.selectedExercises.delete(props.exercise._id)
+		}
+		props.setSelectedExercises(props.selectedExercises)
+	}
 	return <View>
 		<Text>{props.exercise.name}</Text>
-		<CheckBox value={isChecked} onValueChange={setChecked}/>
+		<CheckBox value={isChecked} onValueChange={onValueChange}/>
 	</View>
 }
 
 const AddWorkoutForm = () => {
-	const [textInputValue, setTextInputValue] = useState('');
+	const [textInputValue, setTextInputValue] = useState('')
+	const [selectedExercises, setSelectedExercises] = useState(new Set())
 
 	const submitForm = () => {
 		const requestBody = {
-			name: textInputValue
+			name: textInputValue,
+		 	exerciseIds: Array.from(selectedExercises)	
 		}
-		console.log(requestBody)
 	}
 
 	return (
@@ -113,7 +125,9 @@ const AddWorkoutForm = () => {
 			onChangeText={text => setTextInputValue(text)}
 			value={textInputValue}
 			placeholder="Insert your text!"/>
-			<ExerciseCheckboxes/>
+			<ExerciseCheckboxes
+			selectedExercises={selectedExercises}
+			setSelectedExercises={setSelectedExercises}/>
 			<Button
 			title="Save"
 			onPress={() => submitForm()}/>
