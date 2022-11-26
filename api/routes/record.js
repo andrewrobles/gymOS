@@ -34,18 +34,30 @@ recordRoutes.route("/exercise").get(function (req, res) {
      res.json(result);
    });
 });
- 
-// // This section will help you get a single record by id
-// recordRoutes.route("/record/:id").get(function (req, res) {
-//  let db_connect = dbo.getDb();
-//  let myquery = { _id: ObjectId(req.params.id) };
-//  db_connect
-//    .collection("records")
-//    .findOne(myquery, function (err, result) {
-//      if (err) throw err;
-//      res.json(result);
-//    });
-// });
+
+// Get exercise by id 
+recordRoutes.route("/exercise/:id").get(function (req, res) {
+ let db_connect = dbo.getDb();
+ let myquery = { _id: ObjectId(req.params.id) };
+ db_connect
+   .collection("exercise")
+   .findOne(myquery, function (err, result) {
+     if (err) throw err;
+     res.json(result);
+   });
+});
+
+// Get workout by id 
+recordRoutes.route("/workout/:id").get(function (req, res) {
+ let db_connect = dbo.getDb();
+ let myquery = { _id: ObjectId(req.params.id) };
+ db_connect
+   .collection("workout")
+   .findOne(myquery, function (err, result) {
+     if (err) throw err;
+     res.json(result);
+   });
+});
  
 // Create a new exercise
 recordRoutes.route("/exercise/add").post(function (req, response) {
