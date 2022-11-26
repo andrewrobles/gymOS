@@ -1,4 +1,5 @@
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { StyleSheet, View, Button, Text } from 'react-native'
+import CheckBox from 'expo-checkbox'
 import { useState, useEffect } from 'react'
 
 import { TextInput } from 'react-native';
@@ -76,8 +77,18 @@ const ExerciseCheckboxes = () => {
 		.then((data) => setExercises(data))
 	})
 
-	const listItems = exercises.map((exercise) => <Text key={exercise.name}>{exercise.name}</Text>)
+	const listItems = exercises.map((exercise) => <ExerciseCheckbox 
+		key={exercise.name}
+		exercise={exercise}/>)
 	return <View>{listItems}</View>
+}
+
+const ExerciseCheckbox = (props) => {
+	const [isChecked, setChecked] = useState(false)
+	return <View>
+		<Text>{props.exercise.name}</Text>
+		<CheckBox value={isChecked} onValueChange={setChecked}/>
+	</View>
 }
 
 const AddWorkoutForm = () => {
