@@ -54,7 +54,7 @@ const AddExerciseForm = () => {
   );
 }
 
-export default function ExerciseView() {
+export default () => {
 	return <View>
 		<Text>Add Exercise</Text>
 		<AddExerciseForm/>

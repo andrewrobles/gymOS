@@ -82,7 +82,10 @@ const AddWorkoutForm = () => {
 }
 
 const WorkoutList = () => {
-	const [exercises, setExercises] = useState([])
+	const [workouts, setWorkouts] = useState([])
+	const selectWorkout = () => {
+		console.log('selectWorkout')
+	}
 
 	useEffect(() => {
 		const requestOptions = {
@@ -91,17 +94,17 @@ const WorkoutList = () => {
 		};
 		fetch('http://localhost:5000/workout', requestOptions)
 		.then(response => response.json())
-		.then((data) => setExercises(data))
+		.then((data) => setWorkouts(data))
 	})
 
-	const listItems = exercises.map((exercise) => <Text key={exercise.name}>{exercise.name}</Text>)
+	const listItems = workouts.map((exercise) => <Text key={exercise.name} onPress={selectWorkout}>{exercise.name}</Text>)
 	return <View>
 		<Text>Workouts</Text>
 		{listItems}
 	</View>
 }
 
-export default function WorkoutView() {
+export default () => {
 	return <View>
 		<Text>Add Workout</Text>
 		<AddWorkoutForm/>

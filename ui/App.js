@@ -1,37 +1,33 @@
 import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
-import { TextInput } from 'react-native';
-import ExerciseView from './components/ExerciseView.js'
-import WorkoutView from './components/WorkoutView.js'
-
-const Navbar = (props) => {
-	return <View>
-			<Button 
-			title="Workouts"
-			onPress={() => props.setSelectedViewKey('workoutView')}/>
-			<Button 
-			title="Exercises"
-			onPress={() => props.setSelectedViewKey('exerciseView')}/>
-	</View>
-}
-
-export default function App() {
-	const [selectedViewKey, setSelectedViewKey] = useState('workoutView')
-	const views = {
-		exerciseView: <ExerciseView/>,
-		workoutView: <WorkoutView/>
-	}
-	const selectedView = views[selectedViewKey]
-	return <View style={styles.container}>
-		{selectedView}
-		<Navbar setSelectedViewKey={setSelectedViewKey}/>	
-	</View>
-}
+import Exercises from './components/Exercises.js'
+import Workouts from './components/Workouts.js'
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		backgroundColor: '#fff',
 		margin: 30,
 	},
 });
+
+const Navbar = (props) => {
+	const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1)
+	return <View>{Object.keys(props.views).map(key => (
+			<Button
+			title={capitalize(key)}
+			onPress={() => props.setSelectedViewKey(key)}/>
+	))}</View>
+}
+
+export default function App() {
+	const [selectedViewKey, setSelectedViewKey] = useState('workouts')
+	const views = {
+		exercises: <Exercises/>,
+		workouts: <Workouts/>
+	}
+	return <View style={styles.container}>
+		{views[selectedViewKey]}
+		<Navbar 
+		views={views}
+		setSelectedViewKey={setSelectedViewKey}/>	
+	</View>
+}
