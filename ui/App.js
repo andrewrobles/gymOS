@@ -111,6 +111,13 @@ const AddWorkoutForm = () => {
 			name: textInputValue,
 		 	exerciseIds: Array.from(selectedExercises)	
 		}
+		const requestOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(requestBody)
+		};
+		fetch('http://localhost:5000/workout/add', requestOptions)
+		.then(response => response.json())
 	}
 
 	return (

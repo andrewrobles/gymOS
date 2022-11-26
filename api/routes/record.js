@@ -36,7 +36,7 @@ recordRoutes.route("/exercise").get(function (req, res) {
 //    });
 // });
  
-// This section will help you create a new record.
+// Create a new exercise
 recordRoutes.route("/exercise/add").post(function (req, response) {
  let db_connect = dbo.getDb();
  let myobj = {
@@ -47,6 +47,20 @@ recordRoutes.route("/exercise/add").post(function (req, response) {
    if (err) throw err;
    response.json(res);
  });
+});
+
+// Create a new workout
+recordRoutes.route("/workout/add").post(function (req, response) {
+	let db_connect = dbo.getDb();
+	let myobj = {
+		name: req.body.name,
+		exerciseIds: req.body.exerciseIds
+	};
+	console.log(myobj)
+	db_connect.collection("workout").insertOne(myobj, function (err, res) {
+	if (err) throw err;
+	response.json(res);
+	});
 });
  
 // // This section will help you update a record by id.
