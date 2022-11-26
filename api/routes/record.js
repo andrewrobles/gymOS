@@ -19,21 +19,6 @@ recordRoutes.route("/workout").get(function (req, res) {
 	.find({})
 	.toArray(function (err, result) {
 	if (err) throw err;
-	const response = result.map(curr => {
-		curr.exercises = []
-		let id = null
-		let exercise = null
-		let exercises = []
-		for (var i = 0; i < curr.exerciseIds.length; i++) {
-			id = curr.exerciseIds[i]
-			exercise = db_connect.collection('exercise').findOne({
-				_id: new ObjectId(id)
-			})
-			exercises.push(exercise)
-		}
-		curr.exercises = exercises
-		return curr
-	})
 	res.json(result);
 	});
 });
