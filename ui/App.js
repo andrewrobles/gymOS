@@ -94,14 +94,11 @@ const ExerciseCheckbox = (props) => {
 const AddWorkoutForm = () => {
 	const [textInputValue, setTextInputValue] = useState('');
 
-	const submitExerciseForm = (exerciseName) => {
-		const requestOptions = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ "name": exerciseName})
-		};
-		fetch('http://localhost:5000/exercise/add', requestOptions)
-		.then(response => response.json())
+	const submitForm = () => {
+		const requestBody = {
+			name: textInputValue
+		}
+		console.log(requestBody)
 	}
 
 	return (
@@ -119,7 +116,7 @@ const AddWorkoutForm = () => {
 			<ExerciseCheckboxes/>
 			<Button
 			title="Save"
-			onPress={() => submitExerciseForm(textInputValue)}/>
+			onPress={() => submitForm()}/>
 		</View>
   );
 }
