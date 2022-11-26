@@ -1,5 +1,6 @@
 import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
+import AddWorkout from './components/AddWorkout.js'
 import Exercises from './components/Exercises.js'
 import Workouts from './components/Workouts.js'
 
@@ -22,7 +23,8 @@ export default function App() {
 	const [selectedViewKey, setSelectedViewKey] = useState('workouts')
 	const views = {
 		exercises: <Exercises/>,
-		workouts: <Workouts/>
+		workouts: <Workouts/>,
+		addWorkout: <AddWorkout />
 	}
 	return <View style={styles.container}>
 		{views[selectedViewKey]}
