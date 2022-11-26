@@ -10,9 +10,35 @@ const dbo = require("../db/conn");
  
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
+
+// Get all workouts
+recordRoutes.route("/workout").get(function (req, res) {
+ let db_connect = dbo.getDb("gym");
+ db_connect
+	.collection("workout")
+	.find({})
+	.toArray(function (err, result) {
+	if (err) throw err;
+	const response = result.map(curr => {
+		curr.exercises = []
+		let id = null
+		let exercise = null
+		let exercises = []
+		for (var i = 0; i < curr.exerciseIds.length; i++) {
+			id = curr.exerciseIds[i]
+			exercise = db_connect.collection('exercise').findOne({
+				_id: new ObjectId(id)
+			})
+			exercises.push(exercise)
+		}
+		curr.exercises = exercises
+		return curr
+	})
+	res.json(result);
+	});
+});
  
- 
-// This section will help you get a list of all the records.
+// Get all exercises
 recordRoutes.route("/exercise").get(function (req, res) {
  let db_connect = dbo.getDb("gym");
  db_connect
