@@ -8,11 +8,14 @@ const styles = StyleSheet.create({
 	container: {
 		margin: 30,
 	},
+	navbar: {
+		flexDirection: 'row',
+	},
 });
 
 const Navbar = (props) => {
 	const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1)
-	return <View>{Object.keys(props.views).map(key => (
+	return <View style={styles.navbar}>{Object.keys(props.views).map(key => (
 			<Button
 			title={capitalize(key)}
 			onPress={() => props.setSelectedViewKey(key)}/>
@@ -24,7 +27,6 @@ export default function App() {
 	const views = {
 		exercises: <Exercises/>,
 		workouts: <Workouts/>,
-		addWorkout: <AddWorkout />
 	}
 	return <View style={styles.container}>
 		{views[selectedViewKey]}

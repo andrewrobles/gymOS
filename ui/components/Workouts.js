@@ -1,6 +1,7 @@
 import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
+import AddWorkout from './AddWorkout.js'
 
 const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([])
@@ -27,6 +28,7 @@ const WorkoutList = () => {
 
 export default () => {
 	return <View>
+		<AddWorkout/>
 		<WorkoutList/>
 	</View>
 }
