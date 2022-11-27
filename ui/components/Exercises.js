@@ -1,39 +1,24 @@
 import { View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
+import { getExercises, addExercise } from '../api.js'
 
 const ExerciseList = () => {
 	const [exercises, setExercises] = useState([])
 
 	useEffect(() => {
-		const requestOptions = {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' },
-		};
-		fetch('http://localhost:5000/exercise', requestOptions)
-		.then(response => response.json())
+		getExercises()
 		.then((data) => setExercises(data))
 	})
 
-	const listItems = exercises.map((exercise) => <Text key={exercise.name}>{exercise.name}</Text>)
 	return <View>
 		<Text>Exercises</Text>
-		{listItems}
+		{exercises.map((exercise) => <Text key={exercise.name}>{exercise.name}</Text>)}
 	</View>
 }
 
 const AddExerciseForm = () => {
 	const [textInputValue, setTextInputValue] = useState('');
-
-	const submitExerciseForm = (exerciseName) => {
-		const requestOptions = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ "name": exerciseName})
-		};
-		fetch('http://localhost:5000/exercise/add', requestOptions)
-		.then(response => response.json())
-	}
 
 	return (
 		<View>
@@ -49,7 +34,7 @@ const AddExerciseForm = () => {
 			placeholder="Insert your text!"/>
 			<Button
 			title="Save"
-			onPress={() => submitExerciseForm(textInputValue)}/>
+			onPress={() => addExercise(textInputValue)}/>
 		</View>
   );
 }

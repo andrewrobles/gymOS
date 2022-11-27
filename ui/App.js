@@ -17,13 +17,14 @@ const Navbar = (props) => {
 	const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1)
 	return <View style={styles.navbar}>{Object.keys(props.views).map(key => (
 			<Button
+			key={key}
 			title={capitalize(key)}
 			onPress={() => props.setSelectedViewKey(key)}/>
 	))}</View>
 }
 
 export default function App() {
-	const [selectedViewKey, setSelectedViewKey] = useState('workouts')
+	const [selectedViewKey, setSelectedViewKey] = useState('exercises')
 	const views = {
 		exercises: <Exercises/>,
 		workouts: <Workouts/>,
