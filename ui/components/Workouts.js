@@ -26,7 +26,7 @@ const WorkoutList = () => {
 	</View>
 }
 
-export default () => {
+export default function Workouts() {
 	return <View>
 		<AddWorkout/>
 		<WorkoutList/>

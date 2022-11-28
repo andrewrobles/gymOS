@@ -67,8 +67,7 @@ const AddWorkoutForm = () => {
   );
 }
 
-
-export default () => {
+export default function AddWorkout() {
 	return <View>
 		<Text>Add Workout</Text>
 		<AddWorkoutForm/>

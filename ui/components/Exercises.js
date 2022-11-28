@@ -39,7 +39,7 @@ const AddExerciseForm = () => {
   );
 }
 
-export default () => {
+export default function Exercises() {
 	return <View>
 		<Text>Add Exercise</Text>
 		<AddExerciseForm/>
