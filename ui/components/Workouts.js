@@ -2,6 +2,7 @@ import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
 import AddWorkout from './AddWorkout.js'
+import {getWorkouts} from '../api.js'
 
 const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([])
@@ -10,12 +11,7 @@ const WorkoutList = () => {
 	}
 
 	useEffect(() => {
-		const requestOptions = {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' },
-		};
-		fetch('http://localhost:5000/workout', requestOptions)
-		.then(response => response.json())
+		getWorkouts()
 		.then((data) => setWorkouts(data))
 	})
 

@@ -17,14 +17,14 @@ const addExercise = async (exerciseName) => {
 	return response.json()
 }
 
-const getWorkouts = async () => {
-	const options = {
-		method: 'GET',
-		headers: { 'Content-Type': 'application/json' },
-	};
-	const reponse = await fetch('http://localhost:5000/workout', options)
-	return response.json()
-}
+   const getWorkouts = async () => {
+           const requestOptions = {
+                   method: 'GET', 
+                   headers: { 'Content-Type': 'application/json' },
+          };      
+          const response = await fetch('http://localhost:5000/workout', requestOptions)
+          return response.json() 
+  }    
 
 const addWorkout = async (workoutName, exerciseIds) => {
 	const body = {
