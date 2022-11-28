@@ -2,7 +2,7 @@ import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
 import AddWorkout from './AddWorkout.js'
-import {getWorkouts} from '../api.js'
+import api from '../api.js'
 
 const WorkoutList = () => {
 	const [workouts, setWorkouts] = useState([])
@@ -11,7 +11,7 @@ const WorkoutList = () => {
 	}
 
 	useEffect(() => {
-		getWorkouts()
+		api.getWorkouts()
 		.then((data) => setWorkouts(data))
 	})
 
