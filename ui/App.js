@@ -7,5 +7,5 @@ export default function App() {
 		Exercises: <Exercises/>,
 		Workouts: <Workouts/>,
 	}
-	return <Navbar views={views} defaultView={'Workouts'}/>
+	return <Navbar views={views} defaultView={'Exercises'}/>
 }
