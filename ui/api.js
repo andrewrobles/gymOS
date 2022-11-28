@@ -1,42 +1,42 @@
 const getExercises = async () => {
-	const requestOptions = {
+	const options = {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const response = await fetch('http://localhost:5000/exercise', requestOptions)
+	const response = await fetch('http://localhost:5000/exercise', options)
 	return response.json()	
 }
 
 const addExercise = async (exerciseName) => {
-	const requestOptions = {
+	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ "name": exerciseName})
 	};
-	const response = await fetch('http://localhost:5000/exercise/add', requestOptions)
+	const response = await fetch('http://localhost:5000/exercise/add', options)
 	return response.json()
 }
 
 const getWorkouts = async () => {
-	const requestOptions = {
+	const options = {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const reponse = await fetch('http://localhost:5000/workout', requestOptions)
+	const reponse = await fetch('http://localhost:5000/workout', options)
 	return response.json()
 }
 
 const addWorkout = async (workoutName, exerciseIds) => {
-	const requestBody = {
+	const body = {
 		name: workoutName,
 		exerciseIds: Array.from(exerciseIds)	
 	}
-	const requestOptions = {
+	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(requestBody)
+		body: JSON.stringify(body)
 	};
-	const response = await fetch('http://localhost:5000/workout/add', requestOptions)
+	const response = await fetch('http://localhost:5000/workout/add', options)
 	return response.json()
 }
 
