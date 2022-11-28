@@ -1,13 +1,13 @@
 import { View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
-import { getExercises, addExercise } from '../api.js'
+import api from '../api.js'
 
 const ExerciseList = () => {
 	const [exercises, setExercises] = useState([])
 
 	useEffect(() => {
-		getExercises()
+		api.getExercises()
 		.then((data) => setExercises(data))
 	})
 
@@ -34,7 +34,7 @@ const AddExerciseForm = () => {
 			placeholder="Insert your text!"/>
 			<Button
 			title="Save"
-			onPress={() => addExercise(textInputValue)}/>
+			onPress={() => api.addExercise(textInputValue)}/>
 		</View>
   );
 }

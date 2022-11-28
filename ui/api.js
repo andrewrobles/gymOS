@@ -36,8 +36,8 @@ const addWorkout = async (workoutName, exerciseIds) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(requestBody)
 	};
-	fetch('http://localhost:5000/workout/add', requestOptions)
-	.then(response => response.json())
+	const response = await fetch('http://localhost:5000/workout/add', requestOptions)
+	return response.json()
 }
 
 module.exports = { getExercises, addExercise, getWorkouts, addWorkout }

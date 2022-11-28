@@ -2,25 +2,21 @@ import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
 import CheckBox from 'expo-checkbox'
+import api from '../api.js'
 
 const ExerciseCheckboxes = (props) => {
 	const [exercises, setExercises] = useState([])
 
 	useEffect(() => {
-		const requestOptions = {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' },
-		};
-		fetch('http://localhost:5000/exercise', requestOptions)
-		.then(response => response.json())
+		api.getExercises()
 		.then((data) => setExercises(data))
 	})
 
 	const listItems = exercises.map((exercise) => <ExerciseCheckbox 
 		key={exercise.name}
 		exercise={exercise}
-		selectedExercises={props.selectedExercises}
-		setSelectedExercises={props.setSelectedExercises}/>)
+		exerciseIds={props.exerciseIds}
+		setExerciseIds={props.setExerciseIds}/>)
 	return <View>{listItems}</View>
 }
 
@@ -29,11 +25,11 @@ const ExerciseCheckbox = (props) => {
 	const onValueChange = (checkboxValue) => {
 		setChecked(checkboxValue)
 		if (checkboxValue) {
-			props.selectedExercises.add(props.exercise._id)
+			props.exerciseIds.add(props.exercise._id)
 		} else {
-			props.selectedExercises.delete(props.exercise._id)
+			props.exerciseIds.delete(props.exercise._id)
 		}
-		props.setSelectedExercises(props.selectedExercises)
+		props.setExerciseIds(props.exerciseIds)
 	}
 	return <View>
 		<Text>{props.exercise.name}</Text>
@@ -42,21 +38,11 @@ const ExerciseCheckbox = (props) => {
 }
 
 const AddWorkoutForm = () => {
-	const [textInputValue, setTextInputValue] = useState('')
-	const [selectedExercises, setSelectedExercises] = useState(new Set())
+	const [workoutName, setWorkoutName] = useState('')
+	const [exerciseIds, setExerciseIds] = useState(new Set())
 
 	const submitForm = () => {
-		const requestBody = {
-			name: textInputValue,
-		 	exerciseIds: Array.from(selectedExercises)	
-		}
-		const requestOptions = {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(requestBody)
-		};
-		fetch('http://localhost:5000/workout/add', requestOptions)
-		.then(response => response.json())
+		api.addWorkout(workoutName, exerciseIds)
 	}
 
 	return (
@@ -68,12 +54,12 @@ const AddWorkoutForm = () => {
 				borderWidth: 1,
 				placeholderTextColor: 'gray',
 			}}
-			onChangeText={text => setTextInputValue(text)}
-			value={textInputValue}
+			onChangeText={text => setWorkoutName(text)}
+			value={workoutName}
 			placeholder="Insert your text!"/>
 			<ExerciseCheckboxes
-			selectedExercises={selectedExercises}
-			setSelectedExercises={setSelectedExercises}/>
+			exerciseIds={exerciseIds}
+			setExerciseIds={setExerciseIds}/>
 			<Button
 			title="Save"
 			onPress={() => submitForm()}/>
