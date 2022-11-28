@@ -4,9 +4,12 @@ import { useState, useEffect } from 'react'
 const styles = StyleSheet.create({
 	container: {
 		margin: 30,
+		flex: 1,
 	},
 	navbar: {
 		flexDirection: 'row',
+		position: 'absolute',
+		bottom: 0,
 	},
 });
 
