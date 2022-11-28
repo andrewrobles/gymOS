@@ -4,6 +4,12 @@ import { TextInput } from 'react-native';
 import CheckBox from 'expo-checkbox'
 import api from '../api.js'
 
+const styles = StyleSheet.create({
+	exerciseCheckbox: {
+		flexDirection: 'row',
+	}
+})
+
 const ExerciseCheckboxes = (props) => {
 	const [exercises, setExercises] = useState([])
 
@@ -31,9 +37,9 @@ const ExerciseCheckbox = (props) => {
 		}
 		props.setExerciseIds(props.exerciseIds)
 	}
-	return <View>
-		<Text>{props.exercise.name}</Text>
+	return <View style={styles.exerciseCheckbox}>
 		<CheckBox value={isChecked} onValueChange={onValueChange}/>
+		<Text>{props.exercise.name}</Text>
 	</View>
 }
 
