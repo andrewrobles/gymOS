@@ -5,6 +5,11 @@ require("dotenv").config({ path: "./config.env" });
 const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
+
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 app.use(require("./routes/record"));
 // get driver connection
 const dbo = require("./db/conn");
