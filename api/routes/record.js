@@ -11,80 +11,63 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+const moongo = require('../repositories/baseRepository')
+
 // Get all workouts
-recordRoutes.route("/workout").get(function (req, res) {
- let db_connect = dbo.getDb("gym");
- db_connect
-	.collection("workout")
-	.find({})
-	.toArray(function (err, result) {
-	if (err) throw err;
-	res.json(result);
-	});
+recordRoutes.route("/workouts").get(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workouts = await workoutRepository.getMany()
+	res.json(workouts)
 });
  
 // Get all exercises
-recordRoutes.route("/exercise").get(function (req, res) {
- let db_connect = dbo.getDb("gym");
- db_connect
-   .collection("exercise")
-   .find({})
-   .toArray(function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+recordRoutes.route("/exercises").get(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const exercises = await exerciseRepository.getMany()
+	res.json(exercises)
 });
 
 // Get exercise by id 
-recordRoutes.route("/exercise/:id").get(function (req, res) {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-   .collection("exercise")
-   .findOne(myquery, function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+recordRoutes.route("/exercises/:id").get(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const exercises = await exerciseRepository.findOneById(req.params.id)
+	res.json(exercises)
 });
 
 // Get workout by id 
-recordRoutes.route("/workout/:id").get(function (req, res) {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-   .collection("workout")
-   .findOne(myquery, function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
+recordRoutes.route("/workouts/:id").get(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workouts = await workoutRepository.findOneById(req.params.id)
+	res.json(workouts)
 });
  
 // Create a new exercise
-recordRoutes.route("/exercise/add").post(function (req, response) {
- let db_connect = dbo.getDb();
- let myobj = {
-   name: req.body.name,
- };
- console.log(myobj)
- db_connect.collection("exercise").insertOne(myobj, function (err, res) {
-   if (err) throw err;
-   response.json(res);
- });
+recordRoutes.route("/exercises").post(async (req, res) => {
+	let newExercise = {
+	   name: req.body.name,
+	};
+	const db = dbo.getDb("gym")
+	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const result = await exerciseRepository.insertOne(newExercise)
+	res.json(result)
 });
 
 // Create a new workout
-recordRoutes.route("/workout/add").post(function (req, response) {
-	let db_connect = dbo.getDb();
-	let myobj = {
+recordRoutes.route("/workouts").post(async (req, res) => {
+	let newWorkout = {
 		name: req.body.name,
 		exerciseIds: req.body.exerciseIds
 	};
-	console.log(myobj)
-	db_connect.collection("workout").insertOne(myobj, function (err, res) {
-	if (err) throw err;
-	response.json(res);
-	});
+	const db = dbo.getDb("gym")
+	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workouts = await workoutRepository.insertOne(newWorkout)
+	res.json(workouts)
 });
+
  
 // // This section will help you update a record by id.
 // recordRoutes.route("/update/:id").post(function (req, response) {
@@ -106,15 +89,14 @@ recordRoutes.route("/workout/add").post(function (req, response) {
 //    });
 // });
 
+
 // Delete a workout by id 
- recordRoutes.route("/workout/:id").delete((req, response) => {
-  let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId(req.params.id) };
-  db_connect.collection("workout").deleteOne(myquery, function (err, obj) {
-    if (err) throw err;
-    console.log("1 document deleted");
-    response.json(obj);
-  });
- });
+recordRoutes.route("/workouts/:id").delete(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workouts = await workoutRepository.deleteOneById(req.params.id)
+	res.json(workouts)
+});
+ 
  
 module.exports = recordRoutes;

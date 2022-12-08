@@ -60,7 +60,7 @@ exports.repository = (collection) => {
   const updateOneById = async (id, object) => {
     object.updateDate = new Date()
 
-    return safeAwait(collection.udpateOne({ _id: new ObjectId(id) }))
+    return safeAwait(collection.updateOne({ _id: new ObjectId(id) }))
   }
 
   const updateMany = async (query, object, options = { upsert: false }) => {

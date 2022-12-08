@@ -42,3 +42,13 @@ describe('moongo', () => {
   })
 })
 
+describe('exerciseRepository', () => {
+	it('gets exercises', async () => {
+		const exerciseRepository = moongo.repository(database.collection('exercise'))
+		await exerciseRepository.insertOne({})	
+		exercises = await exerciseRepository.getMany()
+		expect('_id' in exercises[0]).toEqual(true)
+		expect('createDate' in exercises[0]).toEqual(true)
+	})
+})
+
