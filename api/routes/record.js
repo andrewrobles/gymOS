@@ -11,7 +11,7 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-const moongo = require('../repositories/baseRepository')
+const moongo = require('../repositories/base')
 
 // Get all workouts
 recordRoutes.route("/workouts").get(async (req, res) => {

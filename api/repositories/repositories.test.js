@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 const { MongoMemoryServer } = require('mongodb-memory-server')
-const moongo = require('./baseRepository')
+const base = require('./base')
 
 let mongoServer
 let database
@@ -19,9 +19,9 @@ afterAll(async () => {
   	await mongoServer.stop()
 })
 
-describe('moongo', () => {
+describe('base', () => {
   it('repository adds helper functions', async () => {
-    const pokemonCollection = moongo.repository(database.collection('pokemon'))
+    const pokemonCollection = base.repository(database.collection('pokemon'))
 
     expect(pokemonCollection).toHaveProperty('collection')
     expect(pokemonCollection).toHaveProperty('findOne')
@@ -42,9 +42,9 @@ describe('moongo', () => {
   })
 })
 
-describe('exerciseRepository', () => {
+describe('exercise repository', () => {
 	it('gets exercises', async () => {
-		const exerciseRepository = moongo.repository(database.collection('exercise'))
+		const exerciseRepository = require('./exercise')(database)
 		await exerciseRepository.insertOne({})	
 		exercises = await exerciseRepository.getMany()
 		expect('_id' in exercises[0]).toEqual(true)
@@ -52,3 +52,12 @@ describe('exerciseRepository', () => {
 	})
 })
 
+describe('workout repository', () => {
+	it('gets workouts', async () => {
+		const workoutRepository = require('./workout')(database)
+		await workoutRepository.insertOne({})	
+		workouts = await workoutRepository.getMany()
+		expect('_id' in workouts[0]).toEqual(true)
+		expect('createDate' in workouts[0]).toEqual(true)
+	})
+})
