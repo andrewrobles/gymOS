@@ -4,6 +4,4 @@ doc = {host: 'localhost:5000'}
 const outputFile = './swagger_output.json'
 const endpointsFiles = ['./routes/record.js']
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-    require('./server.js')
-})
+swaggerAutogen(outputFile, endpointsFiles, doc)

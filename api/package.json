@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
   	"test": "jest",
-  	"start": "node swagger.js",
+  	"start": "nodemon server.js",
+	"swagger": "node swagger.js",
 	"save": "git add -A && git commit -m 'wip'"
   },
   "author": "",
