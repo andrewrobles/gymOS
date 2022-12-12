@@ -1,25 +1,26 @@
 # gymOS
 
-### API Setup
+### API
 ```bash
 cd api
+
+# Setup
 npm install
 npm run start
-```
 
-### UI Setup
-```bash
-cd ui
-npm install
-npm run ios
-```
-
-### Additional
-
-```bash
 # Running tests
 npm run test
 
 # Updating swagger
 npm run swagger
 ```
+
+### UI
+```bash
+cd ui
+
+# Setup
+npm install
+npm run ios
+```
+

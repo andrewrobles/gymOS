@@ -6,14 +6,14 @@ let mongoServer
 let database
 let connection
 
-beforeAll(async () => {
+beforeEach(async () => {
 	mongoServer = await MongoMemoryServer.create({instance: {dbName: 'gym'}})
 	const mongoUri = mongoServer.getUri()
 	connection = await MongoClient.connect(mongoUri)
 	database = await connection.db('gym')
 })
 
-afterAll(async () => {
+afterEach(async () => {
 	await database.dropDatabase()
 	await connection.close()
   	await mongoServer.stop()
@@ -50,6 +50,21 @@ describe('exercise repository', () => {
 		expect('_id' in exercises[0]).toEqual(true)
 		expect('createDate' in exercises[0]).toEqual(true)
 	})
+	it('deletes exercise', async () => {
+		const exerciseRepository = require('./exercise')(database)
+		await exerciseRepository.insertOne({name: 'exerciseA'})	
+		exercises = await exerciseRepository.getMany()
+		const workoutRepository = require('./workout')(database)
+		await workoutRepository.insertOne({name: 'workoutA', exercises: [exercises[0]._id]})	
+		workouts = await workoutRepository.getMany()
+		exercises[0].workouts = [workouts[0]._id]
+		await exerciseRepository.updateOneById(exercises[0]._id, exercises[0])
+		await exerciseRepository.deleteOneById(exercises[0]._id)
+		const exercisesAfter = await exerciseRepository.getMany()
+		const workoutsAfter = await workoutRepository.getMany()	
+		expect(exercisesAfter.length).toEqual(0)
+		expect(workoutsAfter[0].exercises).toEqual([])
+	})
 })
 
 describe('workout repository', () => {
@@ -59,5 +74,18 @@ describe('workout repository', () => {
 		workouts = await workoutRepository.getMany()
 		expect('_id' in workouts[0]).toEqual(true)
 		expect('createDate' in workouts[0]).toEqual(true)
+	})
+	it('adds exercise', async () => {
+		const workoutRepository = require('./workout')(database)
+		const exerciseRepository = require('./exercise')(database)
+		await exerciseRepository.insertOne({name: 'exerciseA', workouts: []})	
+		await workoutRepository.insertOne({name: 'workoutA', exercises: []})	
+		const workoutsBefore = await workoutRepository.getMany()
+		const exercisesBefore = await exerciseRepository.getMany()
+		await workoutRepository.addExercise(workoutsBefore[0]._id, exercisesBefore[0]._id)
+		const workoutsAfter = await workoutRepository.getMany()
+		const exercisesAfter = await exerciseRepository.getMany()
+		expect(workoutsAfter.exercises).toEqual([exercisesAfter._id])
+		expect(exercisesAfer.workouts).toEqual([workoutsAfter._id])
 	})
 })

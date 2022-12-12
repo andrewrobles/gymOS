@@ -16,7 +16,7 @@ const moongo = require('../repositories/base')
 // Get all workouts
 recordRoutes.route("/workouts").get(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workoutRepository = moongo.repository(db.collection("workouts"))
 	const workouts = await workoutRepository.getMany()
 	res.json(workouts)
 });
@@ -24,7 +24,7 @@ recordRoutes.route("/workouts").get(async (req, res) => {
 // Get all exercises
 recordRoutes.route("/exercises").get(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const exerciseRepository = moongo.repository(db.collection("exercises"))
 	const exercises = await exerciseRepository.getMany()
 	res.json(exercises)
 });
@@ -32,7 +32,7 @@ recordRoutes.route("/exercises").get(async (req, res) => {
 // Get exercise by id 
 recordRoutes.route("/exercises/:id").get(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const exerciseRepository = moongo.repository(db.collection("exercises"))
 	const exercises = await exerciseRepository.findOneById(req.params.id)
 	res.json(exercises)
 });
@@ -40,7 +40,7 @@ recordRoutes.route("/exercises/:id").get(async (req, res) => {
 // Get workout by id 
 recordRoutes.route("/workouts/:id").get(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workoutRepository = moongo.repository(db.collection("workouts"))
 	const workouts = await workoutRepository.findOneById(req.params.id)
 	res.json(workouts)
 });
@@ -49,9 +49,10 @@ recordRoutes.route("/workouts/:id").get(async (req, res) => {
 recordRoutes.route("/exercises").post(async (req, res) => {
 	let newExercise = {
 	   name: req.body.name,
+	   workouts: req.body.workouts 
 	};
 	const db = dbo.getDb("gym")
-	const exerciseRepository = moongo.repository(db.collection("exercise"))
+	const exerciseRepository = moongo.repository(db.collection("exercises"))
 	const result = await exerciseRepository.insertOne(newExercise)
 	res.json(result)
 });
@@ -60,10 +61,10 @@ recordRoutes.route("/exercises").post(async (req, res) => {
 recordRoutes.route("/workouts").post(async (req, res) => {
 	let newWorkout = {
 		name: req.body.name,
-		exerciseIds: req.body.exerciseIds
+		exercises: req.body.workouts,
 	};
 	const db = dbo.getDb("gym")
-	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workoutRepository = moongo.repository(db.collection("workouts"))
 	const workouts = await workoutRepository.insertOne(newWorkout)
 	res.json(workouts)
 });
@@ -89,14 +90,43 @@ recordRoutes.route("/workouts").post(async (req, res) => {
 //    });
 // });
 
+// Update a workout by id 
+recordRoutes.route("/workouts/:id").put(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const { _id, name, exercises } = req.body
+	const workout = { _id, name, exercises }	
+	const workoutRepository = moongo.repository(db.collection("workouts"))
+	const workouts = await workoutRepository.updateOneById(req.params.id, workout)
+	res.json(workouts)
+});
+
+// Update a exercise by id 
+recordRoutes.route("/exercises/:id").put(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const { _id, name, workouts } = req.body
+	const exercise = { _id, name, workouts }
+	const exerciseRepository = moongo.repository(db.collection("exercises"))
+	const exercises = await exerciseRepository.updateOneById(req.params.id, exercise)
+	res.json(exercises)
+});
+
 
 // Delete a workout by id 
 recordRoutes.route("/workouts/:id").delete(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const workoutRepository = moongo.repository(db.collection("workout"))
+	const workoutRepository = moongo.repository(db.collection("workouts"))
 	const workouts = await workoutRepository.deleteOneById(req.params.id)
 	res.json(workouts)
 });
+
+// Delete a workout by id 
+recordRoutes.route("/exercises/:id").delete(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const exerciseRepository = moongo.repository(db.collection("exercises"))
+	const exercises = await exerciseRepository.deleteOneById(req.params.id)
+	res.json(exercises)
+});
+ 
  
  
 module.exports = recordRoutes;
