@@ -90,12 +90,22 @@ recordRoutes.route("/workouts").post(async (req, res) => {
 //    });
 // });
 
+// Add existing exercise to a workout 
+recordRoutes.route("/workouts/:id/exercises").post(async (req, res) => {
+	const db = dbo.getDb("gym")
+	const { _id } = req.body
+	const workout = { _id }	
+	const workoutRepository = require('../repositories/workout')(db) 
+	const workouts = await workoutRepository.addExercise(req.params.id, _id)
+	res.json(workouts)
+});
+
 // Update a workout by id 
 recordRoutes.route("/workouts/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { _id, name, exercises } = req.body
 	const workout = { _id, name, exercises }	
-	const workoutRepository = moongo.repository(db.collection("workouts"))
+	const workoutRepository = require('../repositories/workout')(db) 
 	const workouts = await workoutRepository.updateOneById(req.params.id, workout)
 	res.json(workouts)
 });
@@ -105,7 +115,7 @@ recordRoutes.route("/exercises/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { _id, name, workouts } = req.body
 	const exercise = { _id, name, workouts }
-	const exerciseRepository = moongo.repository(db.collection("exercises"))
+	const exerciseRepository = require('../repositories/exercise')(db) 
 	const exercises = await exerciseRepository.updateOneById(req.params.id, exercise)
 	res.json(exercises)
 });
@@ -119,10 +129,10 @@ recordRoutes.route("/workouts/:id").delete(async (req, res) => {
 	res.json(workouts)
 });
 
-// Delete a workout by id 
+// Delete an exercise by id 
 recordRoutes.route("/exercises/:id").delete(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const exerciseRepository = moongo.repository(db.collection("exercises"))
+	const exerciseRepository = require('../repositories/exercise')(db) 
 	const exercises = await exerciseRepository.deleteOneById(req.params.id)
 	res.json(exercises)
 });
