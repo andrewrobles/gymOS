@@ -7,7 +7,7 @@
   	"test": "jest",
   	"start": "nodemon server.js",
 	"swagger": "node swagger.js",
-	"save": "git add -A && git commit -m 'wip'"
+	"save": "git add -A && git commit -m $1"
   },
   "author": "",
   "license": "ISC",
