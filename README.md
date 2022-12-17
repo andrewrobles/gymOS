@@ -1,4 +1,4 @@
-# gymOS
+# Gym App 
 
 ### API
 ```bash
