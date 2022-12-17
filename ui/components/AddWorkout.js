@@ -48,7 +48,7 @@ const AddWorkoutForm = () => {
 	const [exerciseIds, setExerciseIds] = useState(new Set())
 
 	const submitForm = () => {
-		api.addWorkout(workoutName, exerciseIds)
+		api.addWorkout(workoutName, Array.from(exerciseIds))
 	}
 
 	return (
