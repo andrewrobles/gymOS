@@ -10,7 +10,7 @@ npm run ios
 ```
 
 ### API
-Add a `config.env` file to `/api`:
+Provide `ATLAS_URI` in a new file called `config.env` in `/api`:
 ```bash
 ATLAS_URI=
 PORT=5000
