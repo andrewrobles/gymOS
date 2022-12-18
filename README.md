@@ -1,22 +1,12 @@
 # Gym App 
 
-### UI
-```bash
-cd ui
-
-# Setup
-npm install
-npm run ios
-```
-
-### API
-Provide `ATLAS_URI` in a new file called `config.env` in `/api`:
+### Database
+Provide MongoDB `ATLAS_URI` in a new file called `config.env` in `/api`:
 ```bash
 ATLAS_URI=
 PORT=5000
 ```
-
-Useful commands:
+### API
 ```bash
 cd api
 
@@ -29,4 +19,13 @@ npm run test
 
 # Updating swagger
 npm run swagger
+```
+
+### UI
+```bash
+cd ui
+
+# Setup
+npm install
+npm run ios
 ```
