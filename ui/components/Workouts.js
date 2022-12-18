@@ -5,11 +5,14 @@ import WorkoutList from './WorkoutList.js'
 
 export default function Workouts() {
 	const [showAddWorkout, setShowAddWorkout] = useState(false)
+		
 	return <View>
 		{showAddWorkout ? 
 		<Button title="Go Back" onPress={() => setShowAddWorkout(false)}/>: 
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
-		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null}
-		{showAddWorkout ? null : <WorkoutList/>}
+		{showAddWorkout ? 
+		<AddWorkout close={() => setShowAddWorkout(false)}/>: 
+		<WorkoutList/>}
 	</View>
 }
+

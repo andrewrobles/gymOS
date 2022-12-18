@@ -4,8 +4,9 @@ import api from '../api.js'
 
 export default function WorkoutList() {
 	const [workouts, setWorkouts] = useState([])
-	const selectWorkout = () => {
-		console.log('selectWorkout')
+	const selectWorkout = (workout) => {
+		console.log('selectWorkout ' + workout._id)
+		console.log(workout.exercises)
 	}
 
 	useEffect(() => {
@@ -13,9 +14,11 @@ export default function WorkoutList() {
 		.then((data) => setWorkouts(data))
 	})
 
-	const listItems = workouts.map((exercise) => <Text key={exercise.name} onPress={selectWorkout}>{exercise.name}</Text>)
-	return <View>
-		<Text>Workouts</Text>
-		{listItems}
-	</View>
+	const listItems = workouts.map((workout) => {
+		return <Text 
+			key={workout.name} 
+			onPress={() => selectWorkout(workout)}>{workout.name}</Text>
+		})
+
+	return <View><Text>Workouts</Text>{listItems}</View>
 }
