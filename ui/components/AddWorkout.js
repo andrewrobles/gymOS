@@ -43,12 +43,13 @@ const ExerciseCheckbox = (props) => {
 	</View>
 }
 
-const AddWorkoutForm = () => {
+const AddWorkoutForm = (props) => {
 	const [workoutName, setWorkoutName] = useState('')
 	const [exerciseIds, setExerciseIds] = useState(new Set())
 
 	const submitForm = () => {
 		api.addWorkout(workoutName, Array.from(exerciseIds))
+		props.close()
 	}
 
 	return (
@@ -73,9 +74,9 @@ const AddWorkoutForm = () => {
   );
 }
 
-export default function AddWorkout() {
+export default function AddWorkout(props) {
 	return <View>
 		<Text>Add Workout</Text>
-		<AddWorkoutForm/>
+		<AddWorkoutForm close={props.close}/>
 	</View>
 }

@@ -9,7 +9,7 @@ export default function Workouts() {
 		{showAddWorkout ? 
 		<Button title="Go Back" onPress={() => setShowAddWorkout(false)}/>: 
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
-		{showAddWorkout ? <AddWorkout/>: null}
+		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null}
 		{showAddWorkout ? null : <WorkoutList/>}
 	</View>
 }
