@@ -34,17 +34,13 @@ exports.repository = (collection) => {
   const deleteOneById = async (id) => safeAwait(collection.deleteOne({ _id: new ObjectId(id) }))
 
   const insertOne = async (object) => {
-    object.createDate = new Date()
-
     return safeAwait(collection.insertOne(object))
   }
 
   const insertMany = async (objects) => {
-    const createdDate = new Date()
     const _objects = objects.map(object => {
       return {
         ...object,
-        createdDate,
       }
     })
 
@@ -52,20 +48,14 @@ exports.repository = (collection) => {
   }
 
   const updateOne = async (query, object, options = { upsert: false }) => {
-    object.updatedDate = new Date()
-
     return safeAwait(collection.updateOne(query, { $set: object }, options))
   }
 
   const updateOneById = async (id, object) => {
-    object.updateDate = new Date()
-
     return safeAwait(collection.updateOne({ _id: new ObjectId(id) }, {$set: object}))
   }
 
   const updateMany = async (query, object, options = { upsert: false }) => {
-    object.updatedDate = new Date()
-
     return safeAwait(collection.updateMany(query, { $set: object }, options))
   }
 
@@ -88,7 +78,6 @@ exports.repository = (collection) => {
   const bulkUpdateManyById = async (objects) => {
     const batchSize = 1000
     const batches = splitEvery(batchSize, objects)
-    const now = new Date()
 
     for (const batch of batches) {
       const bulk = collection.initializeUnorderedBulkOp()
@@ -99,7 +88,7 @@ exports.repository = (collection) => {
         bulk
           .find({ _id })
           .updateOne({
-            $set: { ...object, updatedDate: now },
+            $set: { ...object },
           })
       }
 

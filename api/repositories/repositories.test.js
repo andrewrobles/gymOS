@@ -48,7 +48,7 @@ describe('exercise repository', () => {
 		await exerciseRepository.insertOne({})	
 		exercises = await exerciseRepository.getMany()
 		expect('_id' in exercises[0]).toEqual(true)
-		expect('createDate' in exercises[0]).toEqual(true)
+		expect('createDate' in exercises[0]).toEqual(false)
 	})
 	it('deletes exercise', async () => {
 		const exerciseRepository = require('./exercise')(database)
@@ -73,7 +73,7 @@ describe('workout repository', () => {
 		await workoutRepository.insertOne({})	
 		workouts = await workoutRepository.getMany()
 		expect('_id' in workouts[0]).toEqual(true)
-		expect('createDate' in workouts[0]).toEqual(true)
+		expect('createDate' in workouts[0]).toEqual(false)
 	})
 	it('adds exercise', async () => {
 		const workoutRepository = require('./workout')(database)
