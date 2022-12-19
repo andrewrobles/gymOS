@@ -32,9 +32,6 @@
               "properties": {
                 "name": {
                   "example": "any"
-                },
-                "exercises": {
-                  "example": "any"
                 }
               }
             }
@@ -67,9 +64,6 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
-                },
-                "workouts": {
                   "example": "any"
                 }
               }
@@ -235,7 +229,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
+                "exerciseId": {
                   "example": "any"
                 }
               }
