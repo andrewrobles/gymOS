@@ -49,10 +49,7 @@ const AddWorkoutForm = (props) => {
 
 	const submitForm = async () => {
 		const response = await api.addWorkout(workoutName)
-		const exerciseIdArray = Array.from(exerciseIds)
-		for (let i = 0; i < exerciseIdArray.length; i++) {
-			 await api.addExerciseToWorkout(response.insertedId, exerciseIdArray[i])
-		}
+				 .catch(error => console.log(error))
 		props.close()
 	}
 
