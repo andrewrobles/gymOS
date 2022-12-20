@@ -85,7 +85,7 @@ recordRoutes.route("/workouts").post(async (req, res) => {
 // });
 
 // Add existing exercise to a workout 
-recordRoutes.route("/workouts/:id/exercises").post(async (req, res) => {
+recordRoutes.route("/workouts/:id/exercises").patch(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { exerciseId } = req.body
 	const workoutRepository = require('../repositories/workout')(db) 

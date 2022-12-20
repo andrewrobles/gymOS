@@ -214,7 +214,7 @@
       }
     },
     "/workouts/{id}/exercises": {
-      "post": {
+      "patch": {
         "description": "",
         "parameters": [
           {

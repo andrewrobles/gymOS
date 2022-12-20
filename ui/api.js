@@ -26,18 +26,36 @@ const getWorkouts = async () => {
 	return response.json() 
 }    
 
-const addWorkout = async (workoutName, exerciseIds) => {
+const addWorkout = async (workoutName) => {
 	const body = {
 		name: workoutName,
-		exercises: Array.from(exerciseIds)	
 	}
 	const options = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	};
-	const response = await fetch('http://localhost:5000/workouts', options)
+	const [,response] = await fetch('http://localhost:5000/workouts', options)
 	return response.json()
 }
 
-module.exports = { getExercises, addExercise, getWorkouts, addWorkout }
+const addExerciseToWorkout = async (workoutId, exerciseId) => {
+	const body = {
+		exerciseId
+	}
+	const options = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(body)
+	};
+	const response = await fetch(`http://localhost:5000/workouts/${workoutId}/exercises`, options)
+	return response.json()
+}
+
+module.exports = { 
+	addExerciseToWorkout,
+	getExercises, 
+	addExercise, 
+	getWorkouts, 
+	addWorkout 
+}

@@ -47,8 +47,12 @@ const AddWorkoutForm = (props) => {
 	const [workoutName, setWorkoutName] = useState('')
 	const [exerciseIds, setExerciseIds] = useState(new Set())
 
-	const submitForm = () => {
-		api.addWorkout(workoutName, Array.from(exerciseIds))
+	const submitForm = async () => {
+		const response = await api.addWorkout(workoutName)
+		const exerciseIdArray = Array.from(exerciseIds)
+		for (let i = 0; i < exerciseIdArray.length; i++) {
+			 await api.addExerciseToWorkout(response.insertedId, exerciseIdArray[i])
+		}
 		props.close()
 	}
 
@@ -69,7 +73,7 @@ const AddWorkoutForm = (props) => {
 			setExerciseIds={setExerciseIds}/>
 			<Button
 			title="Save"
-			onPress={() => submitForm()}/>
+			onPress={async () => await submitForm()}/>
 		</View>
   );
 }
