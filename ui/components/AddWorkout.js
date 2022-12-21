@@ -48,8 +48,15 @@ const AddWorkoutForm = (props) => {
 	const [exerciseIds, setExerciseIds] = useState(new Set())
 
 	const submitForm = async () => {
-		const response = await api.addWorkout(workoutName)
-				 .catch(error => console.log(error))
+		const exerciseIdArray = Array.from(exerciseIds)
+		try {
+			const response = await api.addWorkout(workoutName)
+			for (let i=0; i<exerciseIdArray.length; i++) {
+				await api.addExerciseToWorkout(exerciseIdArray[i], response[1].insertedId)
+			}
+		} catch(error) {
+			console.log(error)
+		}
 		props.close()
 	}
 

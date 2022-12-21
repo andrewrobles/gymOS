@@ -35,21 +35,20 @@ const addWorkout = async (workoutName) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	};
-	const [,response] = await fetch('http://localhost:5000/workouts', options)
+	const response = await fetch('http://localhost:5000/workouts', options)
 	return response.json()
 }
 
-const addExerciseToWorkout = async (workoutId, exerciseId) => {
+const addExerciseToWorkout = async (exerciseId, workoutId) => {
 	const body = {
 		exerciseId
 	}
 	const options = {
-		method: 'POST',
+		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	};
 	const response = await fetch(`http://localhost:5000/workouts/${workoutId}/exercises`, options)
-	return response.json()
 }
 
 module.exports = { 
