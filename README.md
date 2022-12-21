@@ -1,5 +1,7 @@
 # Gym App 
 
+![gym app logo](ui/logo.png)
+
 ### Database
 Provide MongoDB `ATLAS_URI` in a new file called `config.env` in `/api`:
 ```bash
