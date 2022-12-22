@@ -6,8 +6,6 @@ export default function WorkoutList() {
 	const [workouts, setWorkouts] = useState([])
 	const [exercises, setExercises] = useState([])
 	const selectWorkout = async (workout) => {
-		console.log('selectWorkout ' + workout._id)
-		console.log(workout.exercises)
 		try {
 			const exerciseResponse = await Promise.all(
 			workout.exercises.map(async (exerciseId) => {
