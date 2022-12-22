@@ -2,13 +2,23 @@
 
 ![gym app logo](ui/logo.png)
 
-### Database
-Provide MongoDB `ATLAS_URI` in a new file called `config.env` in `/api`:
+A simpler way to track your lifts.
+
+--------------------
+
+## What is this?
+
+Other gym apps track lifts by requiring you to provide weight, reps, and sets per each exercise. This app only requires you to provide the weight, which makes a huge difference.
+
+Let's say that you're doing a standard 5 by 5 workout (5 sets of 5) with 3 exercises: squat, deadlift, and benchpress. A traditional gym app would require you to provide the weight and reps 5 times per exercise, which is 30 pieces of information. This app would only require you to provide 3 pieces of information: the weight for each exercise - that's 10 times less work when compared to traditional gym apps!
+
+## Database
+Create a new file in `api` called `config.env` and provide MongoDB `ATLAS_URI`:
 ```bash
 ATLAS_URI=
 PORT=5000
 ```
-### API
+## API
 ```bash
 cd api
 
@@ -23,7 +33,7 @@ npm run test
 npm run swagger
 ```
 
-### UI
+## UI
 ```bash
 cd ui
 
