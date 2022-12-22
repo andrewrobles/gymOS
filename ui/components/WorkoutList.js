@@ -17,6 +17,7 @@ export default function WorkoutList() {
 			for (let i=0; i < exerciseResponse.length; i++) {
 				names.push(exerciseResponse[i][1].name)
 			}
+			setExercises(names)
 		} catch (error) {
 			console.log(error)
 		}
@@ -32,6 +33,14 @@ export default function WorkoutList() {
 			key={workout.name} 
 			onPress={async () => await selectWorkout(workout)}>{workout.name}</Text>
 		})
+	const listExercises = exercises.map((exercise) => {
+		return <Text>{exercise}</Text>
+		})
 
-	return <View><Text>Workouts</Text>{listItems}</View>
+	return <View>
+		<Text>Workouts</Text>
+		{listItems}
+		<Text></Text>
+		{listExercises}
+		</View>
 }
