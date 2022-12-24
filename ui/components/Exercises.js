@@ -27,7 +27,7 @@ const ExerciseList = () => {
 
 	return <View>
 		<Text style={styles.header}>Exercises</Text>
-		{exercises.map((exercise) => <View style={styles.container}>
+		{exercises.map((exercise) => <View key={exercise._id} style={styles.container}>
 			<Text key={exercise.name}>{exercise.name}</Text>
 			<View style={styles.deleteButton}>
 				<Button 

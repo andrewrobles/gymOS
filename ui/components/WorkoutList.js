@@ -35,7 +35,7 @@ export default function WorkoutList() {
 	})
 
 	const listItems = workouts.map((workout) => {
-		return <View>
+		return <View key={workout._id}>
 				<Text 
 				key={workout.name} 
 				onPress={async () => await selectWorkout(workout)}>{workout.name}
@@ -48,7 +48,7 @@ export default function WorkoutList() {
 			</View>
 		})
 	const listExercises = exercises.map((exercise) => {
-		return <Text>{exercise}</Text>
+		return <Text key={exercise._id}>{exercise}</Text>
 		})
 
 	return <View>
