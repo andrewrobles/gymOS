@@ -71,7 +71,7 @@ const AddWorkoutForm = (props) => {
 			}}
 			onChangeText={text => setWorkoutName(text)}
 			value={workoutName}
-			placeholder="Insert your text!"/>
+			placeholder=" Workout name"/>
 			<ExerciseCheckboxes
 			exerciseIds={exerciseIds}
 			setExerciseIds={setExerciseIds}/>

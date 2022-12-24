@@ -52,7 +52,7 @@ const AddExerciseForm = () => {
 			}}
 			onChangeText={text => setTextInputValue(text)}
 			value={textInputValue}
-			placeholder="Insert your text!"/>
+			placeholder=" Exercise name"/>
 			<Button
 			title="Save"
 			onPress={() => api.addExercise(textInputValue)}/>
