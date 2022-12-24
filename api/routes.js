@@ -117,7 +117,7 @@ recordRoutes.route("/exercises/:id").put(async (req, res) => {
 // Delete a workout by id 
 recordRoutes.route("/workouts/:id").delete(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const workoutRepository = moongo.repository(db.collection("workouts"))
+	const workoutRepository = require('./repositories/workout')(db)
 	const workouts = await workoutRepository.deleteOneById(req.params.id)
 	res.json(workouts)
 });
