@@ -60,11 +60,21 @@ const getExerciseById = async (exerciseId) => {
 	return response.json()
 }
 
+const deleteExerciseById = async (exerciseId) => {
+	const options = {
+		method: 'DELETE',
+		headers: { 'Content-Type': 'application/json' },
+	};
+	const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
+	return response.json()
+}
+
 module.exports = { 
 	addExerciseToWorkout,
 	getExercises, 
 	addExercise, 
 	getWorkouts, 
 	addWorkout,
-	getExerciseById
+	getExerciseById,
+	deleteExerciseById,
 }

@@ -25,7 +25,9 @@ const ExerciseList = () => {
 		{exercises.map((exercise) => <View style={styles.container}>
 			<Text key={exercise.name}>{exercise.name}</Text>
 			<View style={{ marginLeft: 'auto', bottom: 11}}>
-				<Button title="Delete"/>
+				<Button 
+				title="Delete"
+				onPress={() => api.deleteExerciseById(exercise._id)}/>
 			</View>
 		</View>)}
 	</View>
