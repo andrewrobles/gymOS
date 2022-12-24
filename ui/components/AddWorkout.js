@@ -84,7 +84,7 @@ const AddWorkoutForm = (props) => {
 
 export default function AddWorkout(props) {
 	return <View>
-		<Text>Add Workout</Text>
+		<Text style={{fontWeight: 'bold', fontSize:20}}>Add Workout</Text>
 		<AddWorkoutForm close={props.close}/>
 	</View>
 }

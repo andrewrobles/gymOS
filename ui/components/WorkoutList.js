@@ -36,7 +36,7 @@ export default function WorkoutList() {
 		})
 
 	return <View>
-		<Text>Workouts</Text>
+		<Text style={{fontWeight: 'bold', fontSize: 20}}>Workouts</Text>
 		{listItems}
 		<Text></Text>
 		{listExercises}

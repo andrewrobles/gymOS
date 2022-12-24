@@ -10,6 +10,14 @@ const styles = StyleSheet.create({
 	deleteButton: {
 		fontSize: 5,
 	},
+	header: {
+		fontWeight: "bold",
+		fontSize: 20,
+	},
+	deleteButton: {
+		marginLeft: 'auto',
+		bottom: 11,
+	}
 })
 
 const ExerciseList = () => {
@@ -21,10 +29,10 @@ const ExerciseList = () => {
 	})
 
 	return <View>
-		<Text>Exercises</Text>
+		<Text style={styles.header}>Exercises</Text>
 		{exercises.map((exercise) => <View style={styles.container}>
 			<Text key={exercise.name}>{exercise.name}</Text>
-			<View style={{ marginLeft: 'auto', bottom: 11}}>
+			<View style={styles.deleteButton}>
 				<Button 
 				title="Delete"
 				onPress={() => api.deleteExerciseById(exercise._id)}/>
@@ -57,7 +65,7 @@ const AddExerciseForm = () => {
 
 export default function Exercises() {
 	return <View>
-		<Text>Add Exercise</Text>
+		<Text style={styles.header}>Add Exercise</Text>
 		<AddExerciseForm/>
 		<ExerciseList/>
 	</View>
