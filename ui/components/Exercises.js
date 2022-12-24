@@ -1,7 +1,16 @@
-import { View, Button, Text } from 'react-native'
+import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
 import api from '../api.js'
+
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'row'
+	},
+	deleteButton: {
+		fontSize: 5,
+	},
+})
 
 const ExerciseList = () => {
 	const [exercises, setExercises] = useState([])
@@ -13,7 +22,12 @@ const ExerciseList = () => {
 
 	return <View>
 		<Text>Exercises</Text>
-		{exercises.map((exercise) => <Text key={exercise.name}>{exercise.name}</Text>)}
+		{exercises.map((exercise) => <View style={styles.container}>
+			<Text key={exercise.name}>{exercise.name}</Text>
+			<View style={{ marginLeft: 'auto', bottom: 11}}>
+				<Button title="Delete"/>
+			</View>
+		</View>)}
 	</View>
 }
 
