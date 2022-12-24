@@ -93,21 +93,21 @@ recordRoutes.route("/workouts/:id/exercises").patch(async (req, res) => {
 	res.json(workouts)
 });
 
-// Update a workout by id 
-recordRoutes.route("/workouts/:id").put(async (req, res) => {
+// Update a workout name by id 
+recordRoutes.route("/workouts/:id/name").put(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const { _id, name, exercises } = req.body
-	const workout = { _id, name, exercises }	
+	const { name} = req.body
+	const workout = { name }	
 	const workoutRepository = require('./repositories/workout')(db) 
 	const workouts = await workoutRepository.updateOneById(req.params.id, workout)
 	res.json(workouts)
 });
 
 // Update a exercise by id 
-recordRoutes.route("/exercises/:id").put(async (req, res) => {
+recordRoutes.route("/exercises/:id/name").put(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const { _id, name, workouts } = req.body
-	const exercise = { _id, name, workouts }
+	const { name } = req.body
+	const exercise = { name }
 	const exerciseRepository = require('./repositories/exercise')(db) 
 	const exercises = await exerciseRepository.updateOneById(req.params.id, exercise)
 	res.json(exercises)
