@@ -1,6 +1,14 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Button, View, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import api from '../api.js'
+
+
+const styles = StyleSheet.create({
+	deleteButton: {
+		marginLeft: 'auto',
+		bottom: 29,
+	}
+}) 
 
 export default function WorkoutList() {
 	const [workouts, setWorkouts] = useState([])
@@ -27,9 +35,17 @@ export default function WorkoutList() {
 	})
 
 	const listItems = workouts.map((workout) => {
-		return <Text 
-			key={workout.name} 
-			onPress={async () => await selectWorkout(workout)}>{workout.name}</Text>
+		return <View>
+				<Text 
+				key={workout.name} 
+				onPress={async () => await selectWorkout(workout)}>{workout.name}
+				</Text>
+				<View style={styles.deleteButton}>
+					<Button
+					title="Delete"
+					onPress={() => api.deleteWorkoutById(workout._id)}/>
+				</View>
+			</View>
 		})
 	const listExercises = exercises.map((exercise) => {
 		return <Text>{exercise}</Text>

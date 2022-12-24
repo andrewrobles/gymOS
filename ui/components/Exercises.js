@@ -7,9 +7,6 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row'
 	},
-	deleteButton: {
-		fontSize: 5,
-	},
 	header: {
 		fontWeight: "bold",
 		fontSize: 20,

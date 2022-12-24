@@ -88,9 +88,7 @@ recordRoutes.route("/workouts").post(async (req, res) => {
 recordRoutes.route("/workouts/:id/exercises").patch(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { exerciseId } = req.body
-	const workoutRepository = require('../repositories/workout')(db) 
-	console.log('EXERCISE ID')
-	console.log(exerciseId)
+	const workoutRepository = require('./repositories/workout')(db) 
 	const workouts = await workoutRepository.addExercise(req.params.id, exerciseId)
 	res.json(workouts)
 });
@@ -100,7 +98,7 @@ recordRoutes.route("/workouts/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { _id, name, exercises } = req.body
 	const workout = { _id, name, exercises }	
-	const workoutRepository = require('../repositories/workout')(db) 
+	const workoutRepository = require('./repositories/workout')(db) 
 	const workouts = await workoutRepository.updateOneById(req.params.id, workout)
 	res.json(workouts)
 });
@@ -110,7 +108,7 @@ recordRoutes.route("/exercises/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { _id, name, workouts } = req.body
 	const exercise = { _id, name, workouts }
-	const exerciseRepository = require('../repositories/exercise')(db) 
+	const exerciseRepository = require('./repositories/exercise')(db) 
 	const exercises = await exerciseRepository.updateOneById(req.params.id, exercise)
 	res.json(exercises)
 });
@@ -127,7 +125,7 @@ recordRoutes.route("/workouts/:id").delete(async (req, res) => {
 // Delete an exercise by id 
 recordRoutes.route("/exercises/:id").delete(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const exerciseRepository = require('../repositories/exercise')(db) 
+	const exerciseRepository = require('./repositories/exercise')(db) 
 	const exercises = await exerciseRepository.deleteOneById(req.params.id)
 	res.json(exercises)
 });
