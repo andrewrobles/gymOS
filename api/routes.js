@@ -6,12 +6,12 @@ const express = require("express");
 const recordRoutes = express.Router();
  
 // This will help us connect to the database
-const dbo = require("../db/conn");
+const dbo = require("./db/conn");
  
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-const moongo = require('../repositories/base')
+const moongo = require('./repositories/base')
 
 // Get all workouts
 recordRoutes.route("/workouts").get(async (req, res) => {

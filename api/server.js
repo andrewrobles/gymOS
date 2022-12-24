@@ -10,7 +10,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-app.use(require("./routes/record"));
+app.use(require("./routes.js"));
 // get driver connection
 const dbo = require("./db/conn");
  
