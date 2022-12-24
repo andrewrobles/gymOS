@@ -3,8 +3,12 @@ const getExercises = async () => {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const response = await fetch('http://localhost:5000/exercises', options)
-	return response.json()	
+	try {
+		const response = await fetch('http://localhost:5000/exercises', options)
+		return response.json()	
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 const addExercise = async (exerciseName) => {
@@ -13,8 +17,12 @@ const addExercise = async (exerciseName) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ "name": exerciseName})
 	};
-	const response = await fetch('http://localhost:5000/exercises', options)
-	return response.json()
+	try {
+		const response = await fetch('http://localhost:5000/exercises', options)
+		return response.json()
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 const getWorkouts = async () => {
@@ -22,8 +30,12 @@ const getWorkouts = async () => {
 		method: 'GET', 
 		headers: { 'Content-Type': 'application/json' },
 	};      
-	const response = await fetch('http://localhost:5000/workouts', options)
-	return response.json() 
+	try {
+		const response = await fetch('http://localhost:5000/workouts', options)
+		return response.json() 
+	} catch (error) {
+		return {message: error}
+	}
 }    
 
 const addWorkout = async (workoutName) => {
@@ -35,8 +47,12 @@ const addWorkout = async (workoutName) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	};
-	const response = await fetch('http://localhost:5000/workouts', options)
-	return response.json()
+	try {
+		const response = await fetch('http://localhost:5000/workouts', options)
+		return response.json()
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 const addExerciseToWorkout = async (exerciseId, workoutId) => {
@@ -48,7 +64,11 @@ const addExerciseToWorkout = async (exerciseId, workoutId) => {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	};
-	const response = await fetch(`http://localhost:5000/workouts/${workoutId}/exercises`, options)
+	try {
+		const response = await fetch(`http://localhost:5000/workouts/${workoutId}/exercises`, options)
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 const getExerciseById = async (exerciseId) => {
@@ -56,8 +76,12 @@ const getExerciseById = async (exerciseId) => {
 		method: 'GET',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
-	return response.json()
+	try {
+		const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
+		return response.json()
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 const deleteExerciseById = async (exerciseId) => {
@@ -65,8 +89,12 @@ const deleteExerciseById = async (exerciseId) => {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
-	return response.json()
+	try {
+		const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
+		return response.json()
+	} catch (error) {
+		return { message: error}
+	}
 }
 
 const deleteWorkoutById = async (workoutId) => {
@@ -74,8 +102,12 @@ const deleteWorkoutById = async (workoutId) => {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json' },
 	};
-	const response = await fetch(`http://localhost:5000/workouts/${workoutId}`, options)
-	return response.json()
+	try {
+		const response = await fetch(`http://localhost:5000/workouts/${workoutId}`, options)
+		return response.json()
+	} catch (error) {
+		return {message: error}
+	}
 }
 
 module.exports = { 

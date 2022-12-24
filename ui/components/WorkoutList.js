@@ -21,7 +21,7 @@ export default function WorkoutList() {
 			}))
 			let names = []
 			for (let i=0; i < exerciseResponse.length; i++) {
-				names.push(exerciseResponse[i][1].name)
+				names.push(exerciseResponse[i].name)
 			}
 			setExercises(names)
 		} catch (error) {

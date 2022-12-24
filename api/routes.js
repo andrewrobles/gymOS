@@ -33,7 +33,7 @@ recordRoutes.route("/exercises").get(async (req, res) => {
 recordRoutes.route("/exercises/:id").get(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const exerciseRepository = moongo.repository(db.collection("exercises"))
-	const exercises = await exerciseRepository.findOneById(req.params.id)
+	const [error, exercises] = await exerciseRepository.findOneById(req.params.id)
 	res.json(exercises)
 });
 
