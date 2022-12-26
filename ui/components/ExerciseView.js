@@ -85,6 +85,7 @@ const EditExerciseForm = (props) => {
 		try {
 			await api.updateExercise(props.selectedExercise._id, textInputValue)
 			setTextInputValue('')
+			props.goBack()
 		} catch (error) {
 			console.log(error)
 		}	
