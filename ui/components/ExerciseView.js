@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-const ExerciseList = () => {
+const ExerciseList = (props) => {
 	const [exercises, setExercises] = useState([])
 
 	useEffect(() => {
@@ -35,7 +35,7 @@ const ExerciseList = () => {
 			<View style={styles.editButton}>
 				<Button 
 				title="Edit"
-				onPress={() => api.deleteExerciseById(exercise._id)}/>
+				onPress={() => props.editExercise()}/>
 			</View>
 			<View style={styles.deleteButton}>
 				<Button 
@@ -78,7 +78,7 @@ const AddExerciseForm = () => {
   );
 }
 
-const EditExerciseForm = () => {
+const EditExerciseForm = (props) => {
 	const [textInputValue, setTextInputValue] = useState('');
 	
 	const submitAndClearForm = async () => {
@@ -92,6 +92,9 @@ const EditExerciseForm = () => {
 
 	return (
 		<View>
+			<Button
+			title="Go Back"
+			onPress={() => props.goBack()}/>
 			<Text style={styles.header}>Edit Exercise</Text>
 			<TextInput
 			style={{
@@ -111,8 +114,11 @@ const EditExerciseForm = () => {
 }
 
 export default function Exercises() {
+	const [showEditExerciseForm, setShowEditExerciseForm] = useState(false)
+	const goBack = () => setShowEditExerciseForm(false)
+	const editExercise = () => setShowEditExerciseForm(true)
 	return <View>
-		<AddExerciseForm/>
-		<ExerciseList/>
+		{showEditExerciseForm ? <EditExerciseForm goBack={goBack}/>:<AddExerciseForm/>}
+		<ExerciseList editExercise={editExercise}/>
 	</View>
 }
