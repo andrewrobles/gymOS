@@ -40,6 +40,15 @@ const ExerciseList = () => {
 
 const AddExerciseForm = () => {
 	const [textInputValue, setTextInputValue] = useState('');
+	
+	const submitAndClearForm = async () => {
+		try {
+			await api.addExercise(textInputValue)
+			setTextInputValue('')
+		} catch (error) {
+			console.log(error)
+		}	
+	}
 
 	return (
 		<View>
@@ -55,7 +64,7 @@ const AddExerciseForm = () => {
 			placeholder=" Exercise name"/>
 			<Button
 			title="Save"
-			onPress={() => api.addExercise(textInputValue)}/>
+			onPress={async () => await submitAndClearForm()}/>
 		</View>
   );
 }
