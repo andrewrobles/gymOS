@@ -93,8 +93,8 @@ recordRoutes.route("/workouts/:id/exercises").patch(async (req, res) => {
 	res.json(workouts)
 });
 
-// Update a workout name by id 
-recordRoutes.route("/workouts/:id/name").put(async (req, res) => {
+// Update a workout by id 
+recordRoutes.route("/workouts/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { name} = req.body
 	const workout = { name }	
@@ -104,7 +104,7 @@ recordRoutes.route("/workouts/:id/name").put(async (req, res) => {
 });
 
 // Update a exercise by id 
-recordRoutes.route("/exercises/:id/name").put(async (req, res) => {
+recordRoutes.route("/exercises/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const { name } = req.body
 	const exercise = { name }
