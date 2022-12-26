@@ -35,7 +35,7 @@ const ExerciseList = (props) => {
 			<View style={styles.editButton}>
 				<Button 
 				title="Edit"
-				onPress={() => props.editExercise()}/>
+				onPress={() => props.editExercise(exercise)}/>
 			</View>
 			<View style={styles.deleteButton}>
 				<Button 
@@ -79,11 +79,11 @@ const AddExerciseForm = () => {
 }
 
 const EditExerciseForm = (props) => {
-	const [textInputValue, setTextInputValue] = useState('');
+	const [textInputValue, setTextInputValue] = useState(props.selectedExercise.name);
 	
 	const submitAndClearForm = async () => {
 		try {
-			await api.updateExercise(textInputValue)
+			await api.updateExercise(props.selectedExercise._id, textInputValue)
 			setTextInputValue('')
 		} catch (error) {
 			console.log(error)
@@ -115,10 +115,14 @@ const EditExerciseForm = (props) => {
 
 export default function Exercises() {
 	const [showEditExerciseForm, setShowEditExerciseForm] = useState(false)
+	const [selectedExercise, setSelectedExercise] = useState(null)
 	const goBack = () => setShowEditExerciseForm(false)
-	const editExercise = () => setShowEditExerciseForm(true)
+	const editExercise = (exercise) => {
+		setShowEditExerciseForm(true)
+		setSelectedExercise(exercise)
+	}
 	return <View>
-		{showEditExerciseForm ? <EditExerciseForm goBack={goBack}/>:<AddExerciseForm/>}
+		{showEditExerciseForm ? <EditExerciseForm goBack={goBack} selectedExercise={selectedExercise}/>:<AddExerciseForm/>}
 		<ExerciseList editExercise={editExercise}/>
 	</View>
 }
