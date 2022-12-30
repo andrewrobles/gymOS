@@ -192,10 +192,15 @@ export default function Workouts() {
 		setEditWorkoutId(workoutId)
 		setShowEditWorkout(true)
 	}
+
+	const hideForms = () => {
+		setShowAddWorkout(false)	
+		setShowEditWorkout(false)
+	}
 	
 	return <View>
-		{showAddWorkout ? 
-		<Button title="Go Back" onPress={() => setShowAddWorkout(false)}/>: 
+		{showAddWorkout || showEditWorkout ? 
+		<Button title="Go Back" onPress={() => hideForms()}/>: 
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
 		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
 		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)}/>: null }
