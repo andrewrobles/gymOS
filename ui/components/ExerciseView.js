@@ -124,6 +124,6 @@ export default function Exercises() {
 	}
 	return <View>
 		{showEditExerciseForm ? <EditExerciseForm goBack={goBack} selectedExercise={selectedExercise}/>:<AddExerciseForm/>}
-		<ExerciseList editExercise={editExercise}/>
+		{showEditExerciseForm ? null : <ExerciseList editExercise={editExercise}/>}
 	</View>
 }
