@@ -7,9 +7,6 @@ const styles = StyleSheet.create({
 	exerciseCheckbox: {
 		flexDirection: 'row',
 	},
-	container: {
-		flexDirection: 'row',
-	},
 	editButton: {
 		marginLeft: 'auto',
 		bottom: 11,
@@ -45,12 +42,12 @@ const WorkoutList = () => {
 	})
 
 	const listItems = workouts.map((workout) => {
-		return <View style={styles.container} key={workout._id}>
+		return <View key={workout._id}>
 				<Text 
 				key={workout.name} 
 				onPress={async () => await selectWorkout(workout)}>{workout.name}
 				</Text>
-				<View style={styles.editButton}>
+				<View style={styles.deleteButton}>
 					<Button
 					title="Edit"/>
 				</View>
