@@ -204,7 +204,7 @@ export default function Workouts() {
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
 		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
 		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
-		{showAddWorkout ? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
+		{showAddWorkout || showEditWorkout? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
 	</View>
 }
 
