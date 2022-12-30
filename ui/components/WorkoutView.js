@@ -151,7 +151,7 @@ const EditWorkoutForm = (props) => {
 	const [workoutName, setWorkoutName] = useState(props.workout.name)
 
 	const submitForm = () => {
-		api.editWorkout(props.workoutId, workoutName)
+		api.updateWorkout(props.workout._id, workoutName)
 		.catch(error => console.log(error))
 		props.close()
 	}
@@ -171,7 +171,7 @@ const EditWorkoutForm = (props) => {
 			placeholder=" Workout name"/>
 			<Button
 			title="Save"
-			onPress={async () => await submitForm()}/>
+			onPress={() => submitForm()}/>
 		</View>
   );
 }
