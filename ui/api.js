@@ -39,6 +39,16 @@ const updateExercise = async (exerciseId, exerciseName) => {
 	}
 }
 
+const updateWorkout = async (workoutId, workoutName) => {
+	const options = {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ "name": workoutName})
+	};
+	fetch(`http://localhost:5000/workouts/${workoutId}`, options)
+	.catch(error => console.log(error))
+}
+
 const getWorkouts = async () => {
 	const options = {
 		method: 'GET', 
@@ -133,4 +143,5 @@ module.exports = {
 	deleteExerciseById,
 	deleteWorkoutById,
 	updateExercise,
+	updateWorkout,
 }

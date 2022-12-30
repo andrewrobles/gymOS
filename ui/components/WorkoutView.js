@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 	}
 }) 
 
-const WorkoutList = () => {
+const WorkoutList = (props) => {
 	const [workouts, setWorkouts] = useState([])
 	const [exercises, setExercises] = useState([])
 	const selectWorkout = async (workout) => {
@@ -52,7 +52,8 @@ const WorkoutList = () => {
 				</Text>
 				<View style={styles.editButton}>
 					<Button
-					title="Edit"/>
+					title="Edit"
+					onPress={() => props.openEditWorkoutForm(workout._id)}/>
 				</View>
 				<View style={styles.deleteButton}>
 					<Button
@@ -125,6 +126,7 @@ const AddWorkoutForm = (props) => {
 
 	return (
 		<View>
+			<Text style={{fontWeight: 'bold', fontSize:20}}>Add Workout</Text>
 			<TextInput
 			style={{
 				height: 40, 
@@ -145,9 +147,37 @@ const AddWorkoutForm = (props) => {
   );
 }
 
+const EditWorkoutForm = (props) => {
+	const [workoutName, setWorkoutName] = useState('')
+
+	const submitForm = () => {
+		api.editWorkout(props.workoutId, workoutName)
+		.catch(error => console.log(error))
+		props.close()
+	}
+
+	return (
+		<View>
+			<Text style={{fontWeight: 'bold', fontSize:20}}>Edit Workout</Text>
+			<TextInput
+			style={{
+				height: 40, 
+				borderColor: 'gray', 
+				borderWidth: 1,
+				placeholderTextColor: 'gray',
+			}}
+			onChangeText={text => setWorkoutName(text)}
+			value={workoutName}
+			placeholder=" Workout name"/>
+			<Button
+			title="Save"
+			onPress={async () => await submitForm()}/>
+		</View>
+  );
+}
+
 const AddWorkout = (props) => {
 	return <View>
-		<Text style={{fontWeight: 'bold', fontSize:20}}>Add Workout</Text>
 		<AddWorkoutForm close={props.close}/>
 	</View>
 }
@@ -155,14 +185,21 @@ const AddWorkout = (props) => {
 
 export default function Workouts() {
 	const [showAddWorkout, setShowAddWorkout] = useState(false)
-		
+	const [showEditWorkout, setShowEditWorkout] = useState(false)
+	const [editWorkoutId, setEditWorkoutId] = useState(null)
+
+	const openEditWorkoutForm = (workoutId) => {
+		setEditWorkoutId(workoutId)
+		setShowEditWorkout(true)
+	}
+	
 	return <View>
 		{showAddWorkout ? 
 		<Button title="Go Back" onPress={() => setShowAddWorkout(false)}/>: 
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
-		{showAddWorkout ? 
-		<AddWorkout close={() => setShowAddWorkout(false)}/>: 
-		<WorkoutList/>}
+		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
+		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)}/>: null }
+		{showAddWorkout ? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
 	</View>
 }
 
