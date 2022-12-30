@@ -53,7 +53,7 @@ const WorkoutList = (props) => {
 				<View style={styles.editButton}>
 					<Button
 					title="Edit"
-					onPress={() => props.openEditWorkoutForm(workout._id)}/>
+					onPress={() => props.openEditWorkoutForm(workout)}/>
 				</View>
 				<View style={styles.deleteButton}>
 					<Button
@@ -148,7 +148,7 @@ const AddWorkoutForm = (props) => {
 }
 
 const EditWorkoutForm = (props) => {
-	const [workoutName, setWorkoutName] = useState('')
+	const [workoutName, setWorkoutName] = useState(props.workout.name)
 
 	const submitForm = () => {
 		api.editWorkout(props.workoutId, workoutName)
@@ -186,10 +186,10 @@ const AddWorkout = (props) => {
 export default function Workouts() {
 	const [showAddWorkout, setShowAddWorkout] = useState(false)
 	const [showEditWorkout, setShowEditWorkout] = useState(false)
-	const [editWorkoutId, setEditWorkoutId] = useState(null)
+	const [selectedWorkout, setSelectedWorkout] = useState(null)
 
-	const openEditWorkoutForm = (workoutId) => {
-		setEditWorkoutId(workoutId)
+	const openEditWorkoutForm = (workout) => {
+		setSelectedWorkout(workout)
 		setShowEditWorkout(true)
 	}
 
@@ -203,7 +203,7 @@ export default function Workouts() {
 		<Button title="Go Back" onPress={() => hideForms()}/>: 
 		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
 		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
-		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)}/>: null }
+		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
 		{showAddWorkout ? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
 	</View>
 }
