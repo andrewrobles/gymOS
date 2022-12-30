@@ -118,7 +118,6 @@ const deleteWorkoutById = async (workoutId) => {
 	};
 	try {
 		const response = await fetch(`http://localhost:5000/workouts/${workoutId}`, options)
-		return response.json()
 	} catch (error) {
 		return {message: error}
 	}

@@ -33,13 +33,9 @@ const WorkoutList = () => {
 	}
 
 	useEffect(() => {
-		try {
-			api.getWorkouts()
-			.then((data) => setWorkouts(data))
-		} catch (error) {
-			console.log(error)
-		}
-
+		api.getWorkouts()
+		.then((data) => setWorkouts(data))
+		.catch(error => console.log(error))
 	})
 
 	const listItems = workouts.map((workout) => {
@@ -51,7 +47,7 @@ const WorkoutList = () => {
 				<View style={styles.deleteButton}>
 					<Button
 					title="Delete"
-					onPress={() => api.deleteWorkoutById(workout._id)}/>
+					onPress={() => api.deleteWorkoutById(workout._id).catch(error => console.log('ERROR' + error))}/>
 				</View>
 			</View>
 		})
@@ -65,7 +61,7 @@ const WorkoutList = () => {
 		<Text></Text>
 		{listExercises}
 		</View>
-}
+} 
 
 const ExerciseCheckboxes = (props) => {
 	const [exercises, setExercises] = useState([])
@@ -90,7 +86,7 @@ const ExerciseCheckbox = (props) => {
 		if (checkboxValue) {
 			props.exerciseIds.add(props.exercise._id)
 		} else {
-			props.exerciseIds.delete(props.exercise._id)
+			props.exerciseIds.delete(props.exercise._id) 
 		}
 		props.setExerciseIds(props.exerciseIds)
 	}
