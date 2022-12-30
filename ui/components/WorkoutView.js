@@ -28,11 +28,7 @@ const WorkoutList = (props) => {
 			workout.exercises.map(async (exerciseId) => {
 				return await api.getExerciseById(exerciseId)
 			}))
-			let names = []
-			for (let i=0; i < exerciseResponse.length; i++) {
-				names.push(exerciseResponse[i].name)
-			}
-			setExercises(names)
+			setExercises(exerciseResponse)
 		} catch (error) {
 			console.log(error)
 		}
@@ -63,7 +59,7 @@ const WorkoutList = (props) => {
 			</View>
 		})
 	const listExercises = exercises.map((exercise) => {
-		return <Text key={exercise._id}>{exercise}</Text>
+		return <Text key={exercise._id}>{exercise.name}</Text>
 		})
 
 	return <View>
