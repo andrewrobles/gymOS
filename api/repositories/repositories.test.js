@@ -126,5 +126,7 @@ describe('workout repository', () => {
 		const workoutsAfter2 = await workoutRepository.getMany()
 		const exercisesAfter2 = await exerciseRepository.getMany()
 		expect(exercisesAfter2[0].workouts.length).toEqual(0)
+		expect(exercisesAfter2[1].workouts).toEqual([workoutsAfter2[0]._id])
+		expect(workoutsAfter2[0].exercises).toEqual([exercisesAfter2[1]._id])
 	})
 })
