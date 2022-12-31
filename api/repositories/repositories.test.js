@@ -118,7 +118,13 @@ describe('workout repository', () => {
 		const workoutsAfter = await workoutRepository.getMany()
 		expect(workoutsAfter[0].name).toEqual('workoutB')
 		const exercisesAfter = await exerciseRepository.getMany()
-		console.log(exercisesAfter[0])
 		expect(exercisesAfter[0].workouts).toEqual([workoutsBefore[0]._id])
+		await workoutRepository.updateOneById(workoutsBefore[0]._id, { 
+			name: 'workoutB', 
+			exercises: [exercisesBefore[1]._id] 
+		})
+		const workoutsAfter2 = await workoutRepository.getMany()
+		const exercisesAfter2 = await exerciseRepository.getMany()
+		expect(exercisesAfter2[0].workouts.length).toEqual(0)
 	})
 })
