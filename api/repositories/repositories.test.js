@@ -108,6 +108,7 @@ describe('workout repository', () => {
 		await workoutRepository.insertOne({name: 'workoutA', exercises: []})	
 		const exerciseRepository = require('./exercise')(database)
 		await exerciseRepository.insertOne({name: 'exerciseA', workouts: []})	
+		await exerciseRepository.insertOne({name: 'exerciseB', workouts: []})	
 		const exercisesBefore = await exerciseRepository.getMany()
 		const workoutsBefore = await workoutRepository.getMany()
 		await workoutRepository.updateOneById(workoutsBefore[0]._id, { 
@@ -118,6 +119,6 @@ describe('workout repository', () => {
 		expect(workoutsAfter[0].name).toEqual('workoutB')
 		const exercisesAfter = await exerciseRepository.getMany()
 		console.log(exercisesAfter[0])
-		expect(exercisesAfter[0].workouts.length).toEqual(1)
+		expect(exercisesAfter[0].workouts).toEqual([workoutsBefore[0]._id])
 	})
 })
