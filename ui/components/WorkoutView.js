@@ -154,7 +154,7 @@ const EditWorkoutForm = (props) => {
 	const [exerciseIds, setExerciseIds] = useState(new Set(props.workout.exercises))
 
 	const submitForm = () => {
-		api.updateWorkout(props.workout._id, workoutName)
+		api.updateWorkout(props.workout._id, workoutName, Array.from(exerciseIds))
 		.catch(error => console.log(error))
 		props.close()
 	}

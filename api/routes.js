@@ -96,8 +96,8 @@ recordRoutes.route("/workouts/:id/exercises").patch(async (req, res) => {
 // Update a workout by id 
 recordRoutes.route("/workouts/:id").put(async (req, res) => {
 	const db = dbo.getDb("gym")
-	const { name} = req.body
-	const workout = { name }	
+	const { name, exercises} = req.body
+	const workout = { name, exercises }	
 	const workoutRepository = require('./repositories/workout')(db) 
 	const workouts = await workoutRepository.updateOneById(req.params.id, workout)
 	res.json(workouts)

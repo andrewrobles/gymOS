@@ -39,11 +39,11 @@ const updateExercise = async (exerciseId, exerciseName) => {
 	}
 }
 
-const updateWorkout = async (workoutId, workoutName) => {
+const updateWorkout = async (workoutId, workoutName, exercises) => {
 	const options = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ "name": workoutName})
+		body: JSON.stringify({ "name": workoutName, exercises})
 	};
 	fetch(`http://localhost:5000/workouts/${workoutId}`, options)
 	.catch(error => console.log(error))
