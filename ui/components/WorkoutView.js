@@ -88,6 +88,12 @@ const ExerciseCheckboxes = (props) => {
 
 const ExerciseCheckbox = (props) => {
 	const [isChecked, setChecked] = useState(false)
+	
+	useEffect(() => {
+		if (props.exerciseIds.has(props.exercise._id)) {
+			setChecked(true)
+		}
+	})
 	const onValueChange = (checkboxValue) => {
 		setChecked(checkboxValue)
 		if (checkboxValue) {
@@ -145,6 +151,7 @@ const AddWorkoutForm = (props) => {
 
 const EditWorkoutForm = (props) => {
 	const [workoutName, setWorkoutName] = useState(props.workout.name)
+	const [exerciseIds, setExerciseIds] = useState(new Set(props.workout.exercises))
 
 	const submitForm = () => {
 		api.updateWorkout(props.workout._id, workoutName)
@@ -165,6 +172,9 @@ const EditWorkoutForm = (props) => {
 			onChangeText={text => setWorkoutName(text)}
 			value={workoutName}
 			placeholder=" Workout name"/>
+			<ExerciseCheckboxes
+			exerciseIds={exerciseIds}
+			setExerciseIds={setExerciseIds}/>
 			<Button
 			title="Save"
 			onPress={() => submitForm()}/>
