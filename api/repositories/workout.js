@@ -24,8 +24,17 @@ module.exports = (db) => {
 		}
 		await workoutRepository.deleteOneById(workoutId)
 	}
+	const updateOneById = async (workoutId, workout) => {
+		for (let i=0; i<workout.exercises.length; i++) {
+			const [,exercise] = await exerciseRepository.findOneById(workout.exercises[i])
+			exercise.workouts.push(workout._id)
+			await exerciseRepository.updateOneById(exercise._id, exercise)	
+		}
+		await workoutRepository.updateOneById(workoutId, workout)
+	}
 	return {
 		...workoutRepository,
+		updateOneById,
 		deleteOneById,
 		addExercise,
 	}
