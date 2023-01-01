@@ -22,29 +22,34 @@ const styles = StyleSheet.create({
 })
 
 const ExerciseList = (props) => {
-	const [exercises, setExercises] = useState([])
+const [exercises, setExercises] = useState([])
 
-	useEffect(() => {
-		api.getExercises()
-		.then((data) => setExercises(data))
-	})
+useEffect(() => {
+	api.getExercises()
+	.then((data) => setExercises(data))
+})
 
-	return <View>
-		<Text style={styles.header}>Exercises</Text>
-		{exercises.map((exercise) => <View key={exercise._id} style={styles.container}>
-			<Text key={exercise.name}>{exercise.name}</Text>
-			<View style={styles.editButton}>
-				<Button 
-				title="Edit"
-				onPress={() => props.editExercise(exercise)}/>
-			</View>
-			<View style={styles.deleteButton}>
-				<Button 
-				title="Delete"
-				onPress={() => api.deleteExerciseById(exercise._id)}/>
-			</View>
-		</View>)}
+return <View>
+<Text style={styles.header}>Exercises</Text>
+{exercises.map((exercise) => <View 
+		key={exercise._id} 
+		style={styles.container}
+	>
+	<Text key={exercise.name}>{exercise.name}</Text>
+	<View style={styles.editButton}>
+		<Button 
+		title="Edit"
+		onPress={() => props.editExercise(exercise)}/>
 	</View>
+	<View style={styles.deleteButton}>
+		<Button 
+		title="Delete"
+		onPress={() => api.deleteExerciseById(
+			exercise._id
+		)}/>
+	</View>
+</View>)}
+</View>
 }
 
 const AddExerciseForm = (props) => {
