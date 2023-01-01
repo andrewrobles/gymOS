@@ -94,9 +94,6 @@ const EditExerciseForm = (props) => {
 
 	return (
 		<View>
-			<Button
-			title="Go Back"
-			onPress={() => props.goBack()}/>
 			<Text style={styles.header}>Edit Exercise</Text>
 			<TextInput
 			style={{
@@ -127,6 +124,11 @@ const [
 	addExerciseModalIsVisible,
 	showAddExerciseModal
 ] = useState(false)
+
+const [
+	editExerciseModalIsVisible,
+	showEditExerciseModal
+] = useState(false)
 return <View>
 	<Modal
 		buttonText="Add Exercise"
@@ -134,7 +136,14 @@ return <View>
 		showModal={showAddExerciseModal}
 		content={<AddExerciseForm/>}
 	/>
-	{showEditExerciseForm ? <EditExerciseForm goBack={goBack} selectedExercise={selectedExercise}/>:null}
+	
+	<Modal
+		modalIsVisible={editExerciseModalIsVisible}
+		showModal={showEditExerciseModal}
+		content={<EditExerciseForm 
+			selectedExercise={selectedExercise}
+		/>}
+	/>
 	{showEditExerciseForm ? null : <ExerciseList editExercise={editExercise}/>}
 </View>
 }
