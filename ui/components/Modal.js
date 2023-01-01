@@ -9,6 +9,6 @@ return <View>
 	onPress={() => props.showModal(false)}
 />:
 <Button title={props.buttonText} onPress={props.showModal}/>}
-{props.modalIsVisible ? props.modalContent: null}
+{props.modalIsVisible ? props.content: null}
 </View>
 }

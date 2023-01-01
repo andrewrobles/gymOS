@@ -208,7 +208,7 @@ return <View>
 	buttonText="Add Workout" 
 	modalIsVisible={modalIsVisible}
 	showModal={showModal}
-	modalContent={<AddWorkoutForm 
+	content={<AddWorkoutForm 
 		close={() => showModal(false)}
 	/>}
 />
