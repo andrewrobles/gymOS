@@ -213,12 +213,13 @@ const modalContent = <Text>Modal Content</Text>
 return <View>
 <Modal 
 	buttonText="Add Workout" 
-	modalContent={<AddWorkoutForm close={hideModal}/>}
 	modalIsVisible={modalIsVisible}
+	modalContent={<AddWorkoutForm close={hideModal}/>}
+	backgroundContent={<WorkoutList 
+		openEditWorkoutForm={openEditWorkoutForm}
+	/>}
 />
-{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
 {showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
-{showAddWorkout || showEditWorkout? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
 </View>
 }
 

@@ -17,6 +17,6 @@ return <View>
 {modalIsVisible ?
 <Button title="Go Back" onPress={hideModal}/>:
 <Button title={props.buttonText} onPress={showModal}/>}
-{modalIsVisible ? props.modalContent: null}
+{modalIsVisible ? props.modalContent: props.backgroundContent}
 </View>
 }
