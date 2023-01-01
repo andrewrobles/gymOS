@@ -30,27 +30,26 @@ useEffect(() => {
 })
 
 return <View>
-<Text style={styles.header}>Exercises</Text>
-{exercises.map((exercise) => <View 
-		key={exercise._id} 
-		style={styles.container}
-	>
-	<Text key={exercise.name}>{exercise.name}</Text>
-	<View style={styles.editButton}>
-		<Button 
-		title="Edit"
-		onPress={() => props.editExercise(exercise)}/>
-	</View>
-	<View style={styles.deleteButton}>
-		<Button 
-		title="Delete"
-		onPress={() => api.deleteExerciseById(
-			exercise._id
-		)}/>
-	</View>
-</View>)}
-</View>
-}
+		<Text style={styles.header}>Exercises</Text>
+		{exercises.map((exercise) => <View 
+				key={exercise._id} 
+				style={styles.container}
+			>
+			<Text key={exercise.name}>{exercise.name}</Text>
+			<View style={styles.editButton}>
+				<Button 
+				title="Edit"
+				onPress={() => props.editExercise(exercise)}/>
+			</View>
+			<View style={styles.deleteButton}>
+				<Button 
+				title="Delete"
+				onPress={() => api.deleteExerciseById(
+					exercise._id
+				)}/>
+			</View>
+		</View>)}
+</View>}
 
 const AddExerciseForm = (props) => {
 const [textInputValue, setTextInputValue] = useState('');
@@ -63,22 +62,22 @@ const submitAndClearForm = () => {
 }
 
 return <View>
-<Text style={styles.header}>Add Exercise</Text>
-<TextInput
-	style={{
-		height: 40, 
-		borderColor: 'gray', 
-		borderWidth: 1,
-		placeholderTextColor: 'gray',
-	}}
-	onChangeText={text => setTextInputValue(text)}
-	value={textInputValue}
-	placeholder=" Exercise name"
-/>
-<Button
-	title="Save"
-	onPress={async () => await submitAndClearForm()}
-/>
+		<Text style={styles.header}>Add Exercise</Text>
+		<TextInput
+			style={{
+				height: 40, 
+				borderColor: 'gray', 
+				borderWidth: 1,
+				placeholderTextColor: 'gray',
+			}}
+			onChangeText={text => setTextInputValue(text)}
+			value={textInputValue}
+			placeholder=" Exercise name"
+		/>
+		<Button
+			title="Save"
+			onPress={async () => await submitAndClearForm()}
+		/>
 </View>}
 
 const EditExerciseForm = (props) => {
@@ -98,22 +97,22 @@ const submitAndClearForm = () => {
 }
 
 return <View>
-<Text style={styles.header}>Edit Exercise</Text>
-<TextInput
-	style={{
-		height: 40, 
-		borderColor: 'gray', 
-		borderWidth: 1,
-		placeholderTextColor: 'gray',
-	}}
-	onChangeText={text => setTextInputValue(text)}
-	value={textInputValue}
-	placeholder=" Exercise name"
-/>
-<Button
-	title="Save"
-	onPress={() => submitAndClearForm()}
-/>
+		<Text style={styles.header}>Edit Exercise</Text>
+		<TextInput
+			style={{
+				height: 40, 
+				borderColor: 'gray', 
+				borderWidth: 1,
+				placeholderTextColor: 'gray',
+			}}
+			onChangeText={text => setTextInputValue(text)}
+			value={textInputValue}
+			placeholder=" Exercise name"
+		/>
+		<Button
+			title="Save"
+			onPress={() => submitAndClearForm()}
+		/>
 </View>}
 
 export default function Exercises() {
@@ -134,22 +133,22 @@ const editExercise = (exercise) => {
 }
 
 return <View>
-{!editExerciseModalIsVisible ? <Modal
-	buttonText="Add Exercise"
-	modalIsVisible={addExerciseModalIsVisible}
-	showModal={showAddExerciseModal}
-	content={<AddExerciseForm
-		close={() => showAddExerciseModal(false)}
-	/>}
-/>: null}
+		{!editExerciseModalIsVisible ? <Modal
+			buttonText="Add Exercise"
+			modalIsVisible={addExerciseModalIsVisible}
+			showModal={showAddExerciseModal}
+			content={<AddExerciseForm
+				close={() => showAddExerciseModal(false)}
+			/>}
+		/>: null}
 
-<Modal
-	modalIsVisible={editExerciseModalIsVisible}
-	showModal={showEditExerciseModal}
-	content={<EditExerciseForm 
-		close={() => showEditExerciseModal(false)}
-		selectedExercise={selectedExercise}
-	/>}
+		<Modal
+			modalIsVisible={editExerciseModalIsVisible}
+			showModal={showEditExerciseModal}
+			content={<EditExerciseForm 
+				close={() => showEditExerciseModal(false)}
+				selectedExercise={selectedExercise}
+			/>}
 />
 
 {!editExerciseModalIsVisible && !addExerciseModalIsVisible ? 
