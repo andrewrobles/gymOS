@@ -1,6 +1,7 @@
 import { StyleSheet, View, Button, Text } from 'react-native'
 import { useState, useEffect } from 'react'
 import { TextInput } from 'react-native';
+import Modal from './Modal.js'
 import api from '../api.js'
 
 const styles = StyleSheet.create({
@@ -115,15 +116,25 @@ const EditExerciseForm = (props) => {
 }
 
 export default function Exercises() {
-	const [showEditExerciseForm, setShowEditExerciseForm] = useState(false)
-	const [selectedExercise, setSelectedExercise] = useState(null)
-	const goBack = () => setShowEditExerciseForm(false)
-	const editExercise = (exercise) => {
-		setShowEditExerciseForm(true)
-		setSelectedExercise(exercise)
-	}
-	return <View>
-		{showEditExerciseForm ? <EditExerciseForm goBack={goBack} selectedExercise={selectedExercise}/>:<AddExerciseForm/>}
-		{showEditExerciseForm ? null : <ExerciseList editExercise={editExercise}/>}
-	</View>
+const [showEditExerciseForm, setShowEditExerciseForm] = useState(false)
+const [selectedExercise, setSelectedExercise] = useState(null)
+const goBack = () => setShowEditExerciseForm(false)
+const editExercise = (exercise) => {
+	setShowEditExerciseForm(true)
+	setSelectedExercise(exercise)
+}
+const [
+	addExerciseModalIsVisible,
+	showAddExerciseModal
+] = useState(false)
+return <View>
+	<Modal
+		buttonText="Add Exercise"
+		modalIsVisible={addExerciseModalIsVisible}
+		showModal={showAddExerciseModal}
+		content={<AddExerciseForm/>}
+	/>
+	{showEditExerciseForm ? <EditExerciseForm goBack={goBack} selectedExercise={selectedExercise}/>:null}
+	{showEditExerciseForm ? null : <ExerciseList editExercise={editExercise}/>}
+</View>
 }
