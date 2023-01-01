@@ -7,16 +7,10 @@ const styles = StyleSheet.create({
 
 
 export default function Modal(props) {
-const [modalIsVisible, setModalIsVisible] = useState(
-	props.modalIsVisible !== undefined ?
-	props.modalIsVisible: false
-)
-const showModal = () => setModalIsVisible(true)
-const hideModal = () => setModalIsVisible(false)
 return <View>
-{modalIsVisible ?
-<Button title="Go Back" onPress={hideModal}/>:
-<Button title={props.buttonText} onPress={showModal}/>}
-{modalIsVisible ? props.modalContent: null}
+{props.modalIsVisible ?
+<Button title="Go Back" onPress={() => showModal(false)}/>:
+<Button title={props.buttonText} onPress={props.showModal}/>}
+{props.modalIsVisible ? props.modalContent: null}
 </View>
 }
