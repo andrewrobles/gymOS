@@ -11,8 +11,14 @@ const [modalIsVisible, setModalIsVisible] = useState(
 	props.modalIsVisible !== undefined ?
 	props.modalIsVisible: false
 )
-const showModal = () => setModalIsVisible(true)
-const hideModal = () => setModalIsVisible(false)
+const showModal = () => {
+	setModalIsVisible(true)
+	props.showBackgroundContent(false)
+}
+const hideModal = () => {
+	setModalIsVisible(false)
+	props.showBackgroundContent(true)
+}
 return <View>
 {modalIsVisible ?
 <Button title="Go Back" onPress={hideModal}/>:
