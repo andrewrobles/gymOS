@@ -48,70 +48,68 @@ const ExerciseList = (props) => {
 }
 
 const AddExerciseForm = (props) => {
-	const [textInputValue, setTextInputValue] = useState('');
-	
-	const submitAndClearForm = async () => {
-		try {
-			await api.addExercise(textInputValue)
-			setTextInputValue('')
-		} catch (error) {
-			console.log(error)
-		}	
-		props.close()
-	}
+const [textInputValue, setTextInputValue] = useState('');
 
-	return (
-		<View>
-			<Text style={styles.header}>Add Exercise</Text>
-			<TextInput
-			style={{
-				height: 40, 
-				borderColor: 'gray', 
-				borderWidth: 1,
-				placeholderTextColor: 'gray',
-			}}
-			onChangeText={text => setTextInputValue(text)}
-			value={textInputValue}
-			placeholder=" Exercise name"/>
-			<Button
-			title="Save"
-			onPress={async () => await submitAndClearForm()}/>
-		</View>
-  );
+const submitAndClearForm = () => {
+	api.addExercise(textInputValue)
+	.catch(error => console.log(error))
+	setTextInputValue('')
+	props.close()
 }
+
+return <View>
+<Text style={styles.header}>Add Exercise</Text>
+<TextInput
+	style={{
+		height: 40, 
+		borderColor: 'gray', 
+		borderWidth: 1,
+		placeholderTextColor: 'gray',
+	}}
+	onChangeText={text => setTextInputValue(text)}
+	value={textInputValue}
+	placeholder=" Exercise name"
+/>
+<Button
+	title="Save"
+	onPress={async () => await submitAndClearForm()}
+/>
+</View>}
 
 const EditExerciseForm = (props) => {
-	const [textInputValue, setTextInputValue] = useState(props.selectedExercise.name);
-	
-	const submitAndClearForm = async () => {
-		try {
-			await api.updateExercise(props.selectedExercise._id, textInputValue)
-			setTextInputValue('')
-		} catch (error) {
-			console.log(error)
-		}	
-		props.close()
-	}
+const [
+	textInputValue, 
+	setTextInputValue
+] = useState(props.selectedExercise.name);
 
-	return (
-		<View>
-			<Text style={styles.header}>Edit Exercise</Text>
-			<TextInput
-			style={{
-				height: 40, 
-				borderColor: 'gray', 
-				borderWidth: 1,
-				placeholderTextColor: 'gray',
-			}}
-			onChangeText={text => setTextInputValue(text)}
-			value={textInputValue}
-			placeholder=" Exercise name"/>
-			<Button
-			title="Save"
-			onPress={async () => await submitAndClearForm()}/>
-		</View>
-  );
+const submitAndClearForm = () => {
+	api.updateExercise(
+		props.selectedExercise._id, 
+		textInputValue
+	)
+	.catch(error => console.log(error))
+	setTextInputValue('')
+	props.close()
 }
+
+return <View>
+<Text style={styles.header}>Edit Exercise</Text>
+<TextInput
+	style={{
+		height: 40, 
+		borderColor: 'gray', 
+		borderWidth: 1,
+		placeholderTextColor: 'gray',
+	}}
+	onChangeText={text => setTextInputValue(text)}
+	value={textInputValue}
+	placeholder=" Exercise name"
+/>
+<Button
+	title="Save"
+	onPress={() => submitAndClearForm()}
+/>
+</View>}
 
 export default function Exercises() {
 const [selectedExercise, setSelectedExercise] = useState(null)
