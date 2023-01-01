@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react'
-import { StyleSheet, Button, View, Text } from 'react-native'
-import api from '../api.js'
-
-const styles = StyleSheet.create({
-}) 
-
+import { Button, View, Text } from 'react-native'
 
 export default function Modal(props) {
 return <View>

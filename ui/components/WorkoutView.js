@@ -201,11 +201,6 @@ const openEditWorkoutForm = (workout) => {
 	setShowEditWorkout(true)
 }
 
-const hideForms = () => {
-	setShowAddWorkout(false)	
-	setShowEditWorkout(false)
-}
-
 const [modalIsVisible, showModal] = useState(false)
 
 return <View>
