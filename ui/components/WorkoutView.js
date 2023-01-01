@@ -196,24 +196,42 @@ const [showAddWorkout, setShowAddWorkout] = useState(false)
 const [showEditWorkout, setShowEditWorkout] = useState(false)
 const [selectedWorkout, setSelectedWorkout] = useState(null)
 
+const [
+	workoutModalIsVisible, 
+	showWorkoutModal
+] = useState(false)
+
+const [
+	exerciseModalIsVisible, 
+	showExerciseModal
+] = useState(false)
+
 const openEditWorkoutForm = (workout) => {
 	setSelectedWorkout(workout)
-	setShowEditWorkout(true)
+	showExerciseModal(true)
 }
 
-const [modalIsVisible, showModal] = useState(false)
-
 return <View>
-<Modal 
+{!exerciseModalIsVisible ? <Modal 
 	buttonText="Add Workout" 
-	modalIsVisible={modalIsVisible}
-	showModal={showModal}
+	modalIsVisible={workoutModalIsVisible}
+	showModal={showWorkoutModal}
 	content={<AddWorkoutForm 
-		close={() => showModal(false)}
+		close={() => showWorkoutModal(false)}
+	/>}
+/>: null}
+
+<Modal 
+	modalIsVisible={exerciseModalIsVisible}
+	showModal={showExerciseModal}
+	content={<EditWorkoutForm 
+		close={() => showExerciseModal(false)} 
+		workout={selectedWorkout}
 	/>}
 />
-{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
-{modalIsVisible || showEditWorkout? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
+
+{workoutModalIsVisible || exerciseModalIsVisible? null : 
+<WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
 </View>
 }
 
