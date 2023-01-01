@@ -201,19 +201,25 @@ const openEditWorkoutForm = (workout) => {
 	setShowEditWorkout(true)
 }
 
+const hideForms = () => {
+	setShowAddWorkout(false)	
+	setShowEditWorkout(false)
+}
+
+const [modalIsVisible, setModalIsVisible] = useState(false)
 const [
 	backgroundContentIsVisible,
 	showBackgroundContent
 ] = useState(true)
-const [modalIsVisible, setModalIsVisible] = useState(false)
 const hideModal = () => setModalIsVisible(false)
 
 return <View>
 <Modal 
 	buttonText="Add Workout" 
 	modalContent={<AddWorkoutForm close={hideModal}/>}
-	showBackgroundContent={showBackgroundContent}
 	modalIsVisible={modalIsVisible}
+	showBackgroundContent={
+		showBackgroundContent}
 />
 {showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
 {backgroundContentIsVisible ? <WorkoutList 
