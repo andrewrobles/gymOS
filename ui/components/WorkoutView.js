@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
-import { StyleSheet, Button, View, Text, TextInput } from 'react-native'
+import { StyleSheet, Button, View, Text, TextInput } 
+from 'react-native'
 import CheckBox from 'expo-checkbox'
+import Modal from './Modal.js'
 import api from '../api.js'
 
 const styles = StyleSheet.create({
@@ -190,27 +192,33 @@ const AddWorkout = (props) => {
 
 
 export default function Workouts() {
-	const [showAddWorkout, setShowAddWorkout] = useState(false)
-	const [showEditWorkout, setShowEditWorkout] = useState(false)
-	const [selectedWorkout, setSelectedWorkout] = useState(null)
+const [showAddWorkout, setShowAddWorkout] = useState(false)
+const [showEditWorkout, setShowEditWorkout] = useState(false)
+const [selectedWorkout, setSelectedWorkout] = useState(null)
 
-	const openEditWorkoutForm = (workout) => {
-		setSelectedWorkout(workout)
-		setShowEditWorkout(true)
-	}
+const openEditWorkoutForm = (workout) => {
+	setSelectedWorkout(workout)
+	setShowEditWorkout(true)
+}
 
-	const hideForms = () => {
-		setShowAddWorkout(false)	
-		setShowEditWorkout(false)
-	}
-	
-	return <View>
-		{showAddWorkout || showEditWorkout ? 
-		<Button title="Go Back" onPress={() => hideForms()}/>: 
-		<Button title="Add Workout" onPress={() => setShowAddWorkout(true)}/>}
-		{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
-		{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
-		{showAddWorkout || showEditWorkout? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
-	</View>
+const hideForms = () => {
+	setShowAddWorkout(false)	
+	setShowEditWorkout(false)
+}
+
+const [modalIsVisible, setModalIsVisible] = useState(false)
+const hideModal = () => setModalIsVisible(false)
+const modalContent = <Text>Modal Content</Text>
+
+return <View>
+<Modal 
+	buttonText="Add Workout" 
+	modalContent={<AddWorkoutForm close={hideModal}/>}
+	modalIsVisible={modalIsVisible}
+/>
+{showAddWorkout ? <AddWorkout close={() => setShowAddWorkout(false)}/>: null }
+{showEditWorkout ? <EditWorkoutForm close={() => setShowEditWorkout(false)} workout={selectedWorkout}/>: null }
+{showAddWorkout || showEditWorkout? null : <WorkoutList openEditWorkoutForm={openEditWorkoutForm}/>}
+</View>
 }
 
