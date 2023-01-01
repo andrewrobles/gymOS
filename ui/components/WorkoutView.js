@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 const WorkoutList = (props) => {
 	const [workouts, setWorkouts] = useState([])
 	const [exercises, setExercises] = useState([])
+	const [workout, setWorkout] = useState(null)
 	const selectWorkout = async (workout) => {
 		try {
 			const exerciseResponse = await Promise.all(
@@ -31,6 +32,7 @@ const WorkoutList = (props) => {
 				return await api.getExerciseById(exerciseId)
 			}))
 			setExercises(exerciseResponse)
+			setWorkout(workout)
 		} catch (error) {
 			console.log(error)
 		}
@@ -68,6 +70,7 @@ const WorkoutList = (props) => {
 		<Text style={{fontWeight: 'bold', fontSize: 20}}>Workouts</Text>
 		{listItems}
 		<Text></Text>
+		<Text style={{fontWeight: 'bold', fontSize: 20}}>{workout?.name}</Text>
 		{listExercises}
 		</View>
 } 
@@ -192,8 +195,6 @@ const AddWorkout = (props) => {
 
 
 export default function Workouts() {
-const [showAddWorkout, setShowAddWorkout] = useState(false)
-const [showEditWorkout, setShowEditWorkout] = useState(false)
 const [selectedWorkout, setSelectedWorkout] = useState(null)
 
 const [

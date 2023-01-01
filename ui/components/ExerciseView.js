@@ -149,7 +149,7 @@ return <View>
 	/>}
 />
 
-{!editExerciseModalIsVisible ? 
+{!editExerciseModalIsVisible && !addExerciseModalIsVisible ? 
 <ExerciseList editExercise={editExercise}/> : null}
 </View>
 }
