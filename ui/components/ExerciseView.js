@@ -47,7 +47,7 @@ const ExerciseList = (props) => {
 	</View>
 }
 
-const AddExerciseForm = () => {
+const AddExerciseForm = (props) => {
 	const [textInputValue, setTextInputValue] = useState('');
 	
 	const submitAndClearForm = async () => {
@@ -57,6 +57,7 @@ const AddExerciseForm = () => {
 		} catch (error) {
 			console.log(error)
 		}	
+		props.close()
 	}
 
 	return (
@@ -86,10 +87,10 @@ const EditExerciseForm = (props) => {
 		try {
 			await api.updateExercise(props.selectedExercise._id, textInputValue)
 			setTextInputValue('')
-			props.goBack()
 		} catch (error) {
 			console.log(error)
 		}	
+		props.close()
 	}
 
 	return (
@@ -113,13 +114,7 @@ const EditExerciseForm = (props) => {
 }
 
 export default function Exercises() {
-const [showEditExerciseForm, setShowEditExerciseForm] = useState(false)
 const [selectedExercise, setSelectedExercise] = useState(null)
-const goBack = () => setShowEditExerciseForm(false)
-const editExercise = (exercise) => {
-	setShowEditExerciseForm(true)
-	setSelectedExercise(exercise)
-}
 const [
 	addExerciseModalIsVisible,
 	showAddExerciseModal
@@ -129,21 +124,32 @@ const [
 	editExerciseModalIsVisible,
 	showEditExerciseModal
 ] = useState(false)
+
+const editExercise = (exercise) => {
+	showEditExerciseModal(true)
+	setSelectedExercise(exercise)
+}
+
 return <View>
-	<Modal
-		buttonText="Add Exercise"
-		modalIsVisible={addExerciseModalIsVisible}
-		showModal={showAddExerciseModal}
-		content={<AddExerciseForm/>}
-	/>
-	
-	<Modal
-		modalIsVisible={editExerciseModalIsVisible}
-		showModal={showEditExerciseModal}
-		content={<EditExerciseForm 
-			selectedExercise={selectedExercise}
-		/>}
-	/>
-	{showEditExerciseForm ? null : <ExerciseList editExercise={editExercise}/>}
+{!editExerciseModalIsVisible ? <Modal
+	buttonText="Add Exercise"
+	modalIsVisible={addExerciseModalIsVisible}
+	showModal={showAddExerciseModal}
+	content={<AddExerciseForm
+		close={() => showAddExerciseModal(false)}
+	/>}
+/>: null}
+
+<Modal
+	modalIsVisible={editExerciseModalIsVisible}
+	showModal={showEditExerciseModal}
+	content={<EditExerciseForm 
+		close={() => showEditExerciseModal(false)}
+		selectedExercise={selectedExercise}
+	/>}
+/>
+
+{!editExerciseModalIsVisible ? 
+<ExerciseList editExercise={editExercise}/> : null}
 </View>
 }
