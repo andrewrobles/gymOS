@@ -7,8 +7,10 @@ return <View>
 <Button 
 	title="Go Back" 
 	onPress={() => props.showModal(false)}
-/>:
-<Button title={props.buttonText} onPress={props.showModal}/>}
+/>: null}
+{!props.modalIsVisible && props.buttonText !== undefined ?
+<Button title={props.buttonText} onPress={props.showModal}/>
+: null}
 {props.modalIsVisible ? props.content: null}
 </View>
 }
