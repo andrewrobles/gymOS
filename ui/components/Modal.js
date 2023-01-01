@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { Button, View, Text } from 'react-native'
+import { Button, View } from 'react-native'
 
 export default function Modal(props) {
 const hideModal = () => props.showModal(false)
