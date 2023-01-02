@@ -124,13 +124,20 @@ describe('workout repository', () => {
 		await workoutRepository.updateOneById(
 			workoutsBefore[0]._id, {
 				name: 'exerciseA',
-				exercises: [exercisesBefore[0]._id]
+				exercises: [
+					exercisesBefore[0]._id,
+					exercisesBefore[1]._id
+				]
 		})
 		const workoutsAfter = await workoutRepository.getMany()
 		console.log(workoutsAfter[0].exercises[0])
 		expect(workoutsAfter[0].exercises[0]).toEqual({
 			exerciseId: exercisesBefore[0]._id,
 			ordinal: 0
+		})
+		expect(workoutsAfter[0].exercises[1]).toEqual({
+			exerciseId: exercisesBefore[1]._id,
+			ordinal: 1
 		})
 	})
 
