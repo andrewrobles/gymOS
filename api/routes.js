@@ -26,6 +26,7 @@ recordRoutes.route("/exercises").get(async (req, res) => {
 	const db = dbo.getDb("gym")
 	const exerciseRepository = moongo.repository(db.collection("exercises"))
 	const exercises = await exerciseRepository.getMany()
+	exercises.sort((a, b) => a.name < b.name ? -1 : 1)
 	res.json(exercises)
 });
 
