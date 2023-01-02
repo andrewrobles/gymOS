@@ -45,34 +45,48 @@ const WorkoutList = (props) => {
 	})
 
 	const listItems = workouts.map((workout) => {
-		return <View style={styles.container} key={workout._id}>
+		return <View 
+						style={styles.container} 
+						key={workout._id}>
 				<Text 
 				key={workout.name} 
-				onPress={async () => await selectWorkout(workout)}>{workout.name}
+				onPress={
+					async () => await selectWorkout(workout)}>
+					{workout.name}
 				</Text>
 				<View style={styles.editButton}>
 					<Button
 					title="Edit"
-					onPress={() => props.openEditWorkoutForm(workout)}/>
+					onPress={
+						() => props.openEditWorkoutForm(workout)}/>
 				</View>
 				<View style={styles.deleteButton}>
 					<Button
 					title="Delete"
-					onPress={() => api.deleteWorkoutById(workout._id).catch(error => console.log('ERROR' + error))}/>
+					onPress={
+						() => api.deleteWorkoutById(workout._id)
+						.catch(error => console.log('ERROR' + error))
+					}/>
 				</View>
 			</View>
 		})
 	const listExercises = exercises.map((exercise) => {
-		return <Text key={exercise._id}>{exercise.name}</Text>
-		})
+		return <Text key={exercise._id}>
+			{exercise.name}
+		</Text>
+	})
 
 	return <View>
-		<Text style={{fontWeight: 'bold', fontSize: 20}}>Workouts</Text>
+		<Text style={{fontWeight: 'bold', fontSize: 20}}>
+			Workouts
+		</Text>
 		{listItems}
 		<Text></Text>
-		<Text style={{fontWeight: 'bold', fontSize: 20}}>{workout?.name}</Text>
+		<Text style={{fontWeight: 'bold', fontSize: 20}}>
+			{workout?.name}
+		</Text>
 		{listExercises}
-		</View>
+	</View>
 } 
 
 const ExerciseCheckboxes = (props) => {
