@@ -130,7 +130,6 @@ describe('workout repository', () => {
 				]
 		})
 		const workoutsAfter = await workoutRepository.getMany()
-		console.log(workoutsAfter[0].exercises[0])
 		expect(workoutsAfter[0].exercises[0]).toEqual({
 			exerciseId: exercisesBefore[0]._id,
 			ordinal: 0

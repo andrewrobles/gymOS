@@ -50,7 +50,6 @@ module.exports = (db) => {
 			await exerciseRepository
 			.updateOneById(exercise._id, exercise)	
 		}
-		console.log(workout)
 		const updatedWorkout = {
 			name: workout.name,
 			exercises: workout.exercises.map((id, i) => {
@@ -60,7 +59,6 @@ module.exports = (db) => {
 				}
 			})
 		} 
-		console.log(updatedWorkout)
 		await workoutRepository.updateOneById(
 			workoutId, 
 		  updatedWorkout	
