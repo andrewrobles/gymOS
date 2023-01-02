@@ -88,11 +88,21 @@ const WorkoutList = (props) => {
 } 
 
 const WorkoutExerciseForm = (props) => {
+	const setExerciseWeight = (exerciseId, weight) => {
+		if (weight !== "") {
+			const exercise = props.exercises.find(e => {
+				return e._id === exerciseId
+			})	
+			exercise.weight = weight
+		}
+	}
+	
 	const listExercises = props.exercises.map(
 		(exercise) => {
 			return <WorkoutExercise 
 							key={exercise._id} 
 							exercise={exercise}
+							setExerciseWeight={setExerciseWeight}
 			/>
 		})
 	return <View>{listExercises}</View>
@@ -105,19 +115,20 @@ const WorkoutExercise = (props) => {
 		]= useState(props.exercise.weight.toString())
 
 		const onChanged = (text) =>{
-						let newText = '';
-						let numbers = '0123456789';
+						let newText = ''
+						let numbers = '0123456789'
 
 						for (var i=0; i < text.length; i++) {
 								if(numbers.indexOf(text[i]) > -1 ) {
-										newText = newText + text[i];
+										newText = newText + text[i]
 								}
 								else {
 										setWeight(text)
-										alert("please enter numbers only");
+										alert("please enter numbers only")
 								}
 						}
-						setWeight(newText);
+						setWeight(newText)
+						props.setExerciseWeight(props.exercise._id, newText)
 		}
 		
 		return <View 
