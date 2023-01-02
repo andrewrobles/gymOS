@@ -88,12 +88,14 @@ const WorkoutList = (props) => {
 } 
 
 const WorkoutExerciseForm = (props) => {
-	const setExerciseWeight = (exerciseId, weight) => {
+	const setExerciseWeight = (exercise, weight) => {
 		if (weight !== "") {
-			const exercise = props.exercises.find(e => {
-				return e._id === exerciseId
-			})	
-			exercise.weight = weight
+			exercise.weight = Number(weight)
+			api.updateExercise(
+				exercise._id, 
+				exercise.name, 
+				Number(weight)
+			).catch(error => console.log(error))
 		}
 	}
 	
@@ -128,7 +130,7 @@ const WorkoutExercise = (props) => {
 								}
 						}
 						setWeight(newText)
-						props.setExerciseWeight(props.exercise._id, newText)
+						props.setExerciseWeight(props.exercise, newText)
 		}
 		
 		return <View 

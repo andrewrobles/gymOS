@@ -89,7 +89,8 @@ const [
 const submitAndClearForm = () => {
 	api.updateExercise(
 		props.selectedExercise._id, 
-		textInputValue
+		textInputValue,
+		props.selectedExercise.weight
 	)
 	.catch(error => console.log(error))
 	setTextInputValue('')

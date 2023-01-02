@@ -25,14 +25,14 @@ const addExercise = async (exerciseName) => {
 	}
 }
 
-const updateExercise = async (exerciseId, exerciseName) => {
+const updateExercise = async (id, name, weight) => {
 	const options = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ "name": exerciseName})
+		body: JSON.stringify({ name, weight})
 	};
 	try {
-		const response = await fetch(`http://localhost:5000/exercises/${exerciseId}`, options)
+		const response = await fetch(`http://localhost:5000/exercises/${id}`, options)
 		return response.json()
 	} catch (error) {
 		return {message: error}
