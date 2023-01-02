@@ -94,7 +94,27 @@ const WorkoutList = (props) => {
 } 
 
 const WorkoutExercise = (props) => {
-		const [weight, setWeight]	= useState('0')
+		const [
+			weight, 
+			setWeight
+		]= useState(props.exercise.weight.toString())
+
+		const onChanged = (text) =>{
+						let newText = '';
+						let numbers = '0123456789';
+
+						for (var i=0; i < text.length; i++) {
+								if(numbers.indexOf(text[i]) > -1 ) {
+										newText = newText + text[i];
+								}
+								else {
+										// your call back function
+										setWeight(text)
+										alert("please enter numbers only");
+								}
+						}
+						setWeight(newText);
+		}
 		
 		return <View 
 				style={styles.container} 
@@ -111,7 +131,7 @@ const WorkoutExercise = (props) => {
 				marginLeft: 'auto',
 				width: 40,
 			}}
-			onChangeText={text => setWeight(text)}
+			onChangeText={text => onChanged(text)}
 			value={weight}
 			placeholder=" lbs"/>
 		</View>

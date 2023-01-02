@@ -46,11 +46,19 @@ recordRoutes.route("/workouts/:id").get(async (req, res) => {
 });
  
 // Create a new exercise
-recordRoutes.route("/exercises").post(async (req, res) => {
+recordRoutes.route("/exercises")
+.post(async (req, res) => {
 	const {name} = req.body
 	const db = dbo.getDb("gym")
-	const exerciseRepository = moongo.repository(db.collection("exercises"))
-	const result = await exerciseRepository.insertOne({name, workouts: []})
+	const exerciseRepository = moongo.repository(
+		db.collection("exercises")
+	)
+	const result = await exerciseRepository
+	.insertOne({
+		name, 
+		workouts: [],
+		weight: 0,
+	})
 	res.json(result)
 });
 
