@@ -18,7 +18,10 @@ const styles = StyleSheet.create({
 	},
 	deleteButton: {
 		bottom: 11,
-	}
+	},
+	weightField: {
+		marginLeft: 'auto',
+	},
 }) 
 
 const WorkoutList = (props) => {
@@ -71,9 +74,10 @@ const WorkoutList = (props) => {
 			</View>
 		})
 	const listExercises = exercises.map((exercise) => {
-		return <Text key={exercise._id}>
-			{exercise.name}
-		</Text>
+		return <WorkoutExercise 
+			key={exercise._id} 
+			exercise={exercise}
+		/>
 	})
 
 	return <View>
@@ -88,6 +92,30 @@ const WorkoutList = (props) => {
 		{listExercises}
 	</View>
 } 
+
+const WorkoutExercise = (props) => {
+		const [weight, setWeight]	= useState('0')
+		
+		return <View 
+				style={styles.container} 
+				key={props.exercise._id}>
+			<Text>
+				{props.exercise.name}
+			</Text>
+			<TextInput
+			style={{
+				height: 30, 
+				borderColor: 'gray', 
+				borderWidth: 1,
+				placeholderTextColor: 'gray',
+				marginLeft: 'auto',
+				width: 40,
+			}}
+			onChangeText={text => setWeight(text)}
+			value={weight}
+			placeholder=" lbs"/>
+		</View>
+}
 
 const ExerciseCheckboxes = (props) => {
 	const [exercises, setExercises] = useState([])
