@@ -105,28 +105,45 @@ describe('workout repository', () => {
 	})
 	it('updates workout', async() => {
 		const workoutRepository = require('./workout')(database)
-		await workoutRepository.insertOne({name: 'workoutA', exercises: []})	
+		await workoutRepository.insertOne({
+			name: 'workoutA', 
+			exercises: []
+		})	
 		const exerciseRepository = require('./exercise')(database)
-		await exerciseRepository.insertOne({name: 'exerciseA', workouts: []})	
-		await exerciseRepository.insertOne({name: 'exerciseB', workouts: []})	
+		await exerciseRepository.insertOne({
+			name: 'exerciseA', 
+			workouts: []
+		})	
+		await exerciseRepository.insertOne({
+			name: 'exerciseB', 
+			workouts: []
+		})	
 		const exercisesBefore = await exerciseRepository.getMany()
 		const workoutsBefore = await workoutRepository.getMany()
-		await workoutRepository.updateOneById(workoutsBefore[0]._id, { 
-			name: 'workoutB', 
-			exercises: [exercisesBefore[0]._id] 
+		await workoutRepository.updateOneById(
+			workoutsBefore[0]._id, { 
+				name: 'workoutB', 
+				exercises: [exercisesBefore[0]._id] 
 		})
 		const workoutsAfter = await workoutRepository.getMany()
 		expect(workoutsAfter[0].name).toEqual('workoutB')
 		const exercisesAfter = await exerciseRepository.getMany()
-		expect(exercisesAfter[0].workouts).toEqual([workoutsBefore[0]._id])
-		await workoutRepository.updateOneById(workoutsBefore[0]._id, { 
-			name: 'workoutB', 
-			exercises: [exercisesBefore[1]._id] 
+		expect(exercisesAfter[0].workouts).toEqual([
+			workoutsBefore[0]._id
+		])
+		await workoutRepository.updateOneById(
+			workoutsBefore[0]._id, { 
+				name: 'workoutB', 
+				exercises: [exercisesBefore[1]._id] 
 		})
 		const workoutsAfter2 = await workoutRepository.getMany()
 		const exercisesAfter2 = await exerciseRepository.getMany()
 		expect(exercisesAfter2[0].workouts.length).toEqual(0)
-		expect(exercisesAfter2[1].workouts).toEqual([workoutsAfter2[0]._id])
-		expect(workoutsAfter2[0].exercises).toEqual([exercisesAfter2[1]._id])
+		expect(exercisesAfter2[1].workouts).toEqual(
+			[workoutsAfter2[0]._id]
+		)
+		expect(workoutsAfter2[0].exercises).toEqual(
+			[exercisesAfter2[1]._id]
+		)
 	})
 })

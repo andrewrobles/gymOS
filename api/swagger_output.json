@@ -111,6 +111,9 @@
               "properties": {
                 "name": {
                   "example": "any"
+                },
+                "weight": {
+                  "example": "any"
                 }
               }
             }
@@ -172,6 +175,9 @@
               "type": "object",
               "properties": {
                 "name": {
+                  "example": "any"
+                },
+                "exercises": {
                   "example": "any"
                 }
               }
