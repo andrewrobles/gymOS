@@ -24,22 +24,49 @@ module.exports = (db) => {
 		}
 		await workoutRepository.deleteOneById(workoutId)
 	}
+
 	const updateOneById = async (workoutId, workout) => {
-		const [,workoutBefore] = await workoutRepository.findOneById(workoutId)
+		const [,workoutBefore] = await workoutRepository
+		.findOneById(workoutId)
+
 		for (let i=0; i<workoutBefore.exercises.length; i++) {
-			const [,exercise] = await exerciseRepository.findOneById(workoutBefore.exercises[i])
-			exercise.workouts = exercise.workouts.filter(currWorkout => {
-				return currWorkout.toString() != workoutId.toString()
-			})
-			await exerciseRepository.updateOneById(exercise._id, exercise)	
-		}
+			const [,exercise] = await exerciseRepository
+			.findOneById(workoutBefore.exercises[i])
+
+			exercise.workouts = exercise.workouts.filter(
+				w => {return w.toString() != workoutId.toString()}
+			)
+
+			await exerciseRepository.updateOneById(
+				exercise._id, 
+				exercise
+		 )}
+
 		for (let i=0; i<workout.exercises.length; i++) {
-			const [,exercise] = await exerciseRepository.findOneById(workout.exercises[i])
+			const [,exercise] = await exerciseRepository
+			.findOneById(workout.exercises[i])
 			exercise.workouts.push(workoutId)
-			await exerciseRepository.updateOneById(exercise._id, exercise)	
+
+			await exerciseRepository
+			.updateOneById(exercise._id, exercise)	
 		}
-		await workoutRepository.updateOneById(workoutId, workout)
+		console.log(workout)
+		const updatedWorkout = {
+			name: workout.name,
+			exercises: workout.exercises.map((id, i) => {
+				return {
+					exerciseId: id,
+					ordinal: i	
+				}
+			})
+		} 
+		console.log(updatedWorkout)
+		await workoutRepository.updateOneById(
+			workoutId, 
+		  updatedWorkout	
+		)
 	}
+
 	return {
 		...workoutRepository,
 		updateOneById,

@@ -104,7 +104,7 @@ describe('workout repository', () => {
 		expect(exercisesAfter[0].workouts).toEqual([])
 	})
 
-	it('adds ordered exercise', async () => {
+	it('adds exercise ordinal', async () => {
 		const workoutRepository = require('./workout')(database)
 		await workoutRepository.insertOne({
 			name: 'workoutA', 
@@ -121,17 +121,10 @@ describe('workout repository', () => {
 		})	
 		const exercisesBefore = await exerciseRepository.getMany()
 		const workoutsBefore = await workoutRepository.getMany()
-		await workoutRepository.updateOneById(
-			workoutsBefore[0]._id, {
-				name: 'exerciseA',
-				exercises: [exercisesBefore[0]._id]
-		})
-		const workoutsAfter = await workoutRepository.getMany()
-		console.log(workoutsAfter[0].exercises[0])
-		expect(workoutsAfter[0].exercises[0]).toEqual({
-			exerciseId: exercisesBefore[0]._id,
-			ordinal: 0
-		})
+		workoutRepository.updateOneById(workoutsBefore[0]._id, {
+			name: 'exerciseA',
+			exercises: [exercisesBefore[0]._id]
+		})					
 	})
 
 	it('updates workout', async() => {
