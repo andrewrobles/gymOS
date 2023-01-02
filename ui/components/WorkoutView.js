@@ -73,12 +73,6 @@ const WorkoutList = (props) => {
 				</View>
 			</View>
 		})
-	const listExercises = exercises.map((exercise) => {
-		return <WorkoutExercise 
-			key={exercise._id} 
-			exercise={exercise}
-		/>
-	})
 
 	return <View>
 		<Text style={{fontWeight: 'bold', fontSize: 20}}>
@@ -89,9 +83,20 @@ const WorkoutList = (props) => {
 		<Text style={{fontWeight: 'bold', fontSize: 20}}>
 			{workout?.name}
 		</Text>
-		{listExercises}
+		<WorkoutExerciseForm exercises={exercises}/>
 	</View>
 } 
+
+const WorkoutExerciseForm = (props) => {
+	const listExercises = props.exercises.map(
+		(exercise) => {
+			return <WorkoutExercise 
+							key={exercise._id} 
+							exercise={exercise}
+			/>
+		})
+	return <View>{listExercises}</View>
+}
 
 const WorkoutExercise = (props) => {
 		const [
@@ -108,7 +113,6 @@ const WorkoutExercise = (props) => {
 										newText = newText + text[i];
 								}
 								else {
-										// your call back function
 										setWeight(text)
 										alert("please enter numbers only");
 								}
