@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
-import { StyleSheet, Button, View, Text, TextInput } 
-from 'react-native'
 import CheckBox from 'expo-checkbox'
 import Modal from './Modal.js'
 import api from '../api.js'
+import { 
+	StyleSheet, 
+	Button, 
+	View, 
+	Text, 
+	TextInput 
+} from 'react-native'
 
 const styles = StyleSheet.create({
 	exerciseCheckbox: {
@@ -31,8 +36,8 @@ const WorkoutList = (props) => {
 	const selectWorkout = async (workout) => {
 		try {
 			const exerciseResponse = await Promise.all(
-			workout.exercises.map(async (exerciseId) => {
-				return await api.getExerciseById(exerciseId)
+			workout.exercises.map(async (exercise) => {
+				return await api.getExerciseById(exercise.exerciseId)
 			}))
 			setExercises(exerciseResponse)
 			setWorkout(workout)
@@ -201,9 +206,7 @@ const AddWorkoutForm = (props) => {
 		const exerciseIdArray = Array.from(exerciseIds)
 		try {
 			const response = await api.addWorkout(workoutName)
-			for (let i=0; i<exerciseIdArray.length; i++) {
-				await api.addExerciseToWorkout(exerciseIdArray[i], response[1].insertedId)
-			}
+			await api.updateWorkout(response[1].insertedId, workoutName, exerciseIdArray)
 		} catch(error) {
 			console.log(error)
 		}
