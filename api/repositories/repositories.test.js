@@ -93,7 +93,13 @@ describe('workout repository', () => {
 		await exerciseRepository.insertOne({name: 'exerciseA'})	
 		exercises = await exerciseRepository.getMany()
 		const workoutRepository = require('./workout')(database)
-		await workoutRepository.insertOne({name: 'workoutA', exercises: [exercises[0]._id]})	
+		await workoutRepository.insertOne({
+			name: 'workoutA', 
+			exercises: [{
+				exerciseId: exercises[0]._id,
+				ordinal: 0
+			}]
+		})	
 		workouts = await workoutRepository.getMany()
 		exercises[0].workouts = [workouts[0]._id]
 		await exerciseRepository.updateOneById(exercises[0]._id, exercises[0])
@@ -180,7 +186,7 @@ describe('workout repository', () => {
 			[workoutsAfter2[0]._id]
 		)
 		expect(workoutsAfter2[0].exercises).toEqual(
-			[exercisesAfter2[1]._id]
+			[{exerciseId: exercisesAfter2[1]._id, ordinal: 0}]
 		)
 	})
 })
