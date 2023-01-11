@@ -1,22 +1,33 @@
 import { StyleSheet, View, Text } from 'react-native'
-import { useState }  from 'react'
+import { useState, useMemo }  from 'react'
 
 const styles = StyleSheet.create({
 	item: {
 		backgroundColor: 'gray',
 		marginBottom: 1,
+	},
+	rect: {
+		width: 200,
+		height: 200,
+		backgroundColor: 'red'
 	}
 })
+
+const Rect = () => {
+	return <View style={styles.rect}/>
+}
+
+const POSITION = {x: 0, y: 0}
+const Draggable = ({children}) => {
+	const [state, setState] = useState ({
+		isDragging: false,
+		origin: POSITION,
+		translation: POSITION
+	})
+	
+	return <View>{children}</View>
+}
 	
 export default function List() {
-	const [list, setList] = useState([
-			{name: 'name1'}, 
-			{name: 'name2'}, 
-			{name: 'name3'},
-	])
-	return <View>
-		{list.map(item => <Text style={styles.item} key={item.name}>
-			{item.name}
-		</Text>)}
-	</View>
+	return <Rect/>
 }
