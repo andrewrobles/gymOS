@@ -17,7 +17,6 @@ const List = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Drag this box!</Text>
       <Animated.View
         style={{
           transform: [{translateX: pan.x}, {translateY: pan.y}],
