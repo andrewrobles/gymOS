@@ -19,7 +19,7 @@ const List = () => {
     <View style={styles.container}>
       <Animated.View
         style={{
-          transform: [{translateX: pan.x}, {translateY: pan.y}],
+          transform: [{translateX: 0}, {translateY: pan.y}],
         }}
         {...panResponder.panHandlers}>
         <View style={styles.box} />
