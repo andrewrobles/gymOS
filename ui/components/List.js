@@ -1,33 +1,50 @@
-import { StyleSheet, View, Text } from 'react-native'
-import { useState, useMemo }  from 'react'
+import React, {useRef} from 'react';
+import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
+
+const List = () => {
+  const pan = useRef(new Animated.ValueXY()).current;
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
+      onPanResponderRelease: () => {
+        pan.extractOffset();
+      },
+    }),
+  ).current;
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titleText}>Drag this box!</Text>
+      <Animated.View
+        style={{
+          transform: [{translateX: pan.x}, {translateY: pan.y}],
+        }}
+        {...panResponder.panHandlers}>
+        <View style={styles.box} />
+      </Animated.View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-	item: {
-		backgroundColor: 'gray',
-		marginBottom: 1,
-	},
-	rect: {
-		width: 200,
-		height: 200,
-		backgroundColor: 'red'
-	}
-})
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleText: {
+    fontSize: 14,
+    lineHeight: 24,
+    fontWeight: 'bold',
+  },
+  box: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+});
 
-const Rect = () => {
-	return <View style={styles.rect}/>
-}
-
-const POSITION = {x: 0, y: 0}
-const Draggable = ({children}) => {
-	const [state, setState] = useState ({
-		isDragging: false,
-		origin: POSITION,
-		translation: POSITION
-	})
-	
-	return <View>{children}</View>
-}
-	
-export default function List() {
-	return <Rect/>
-}
+export default List;
