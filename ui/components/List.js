@@ -10,7 +10,14 @@ const List = () => {
       onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}],
 			{useNativeDriver: false}),
       onPanResponderRelease: () => {
-        pan.extractOffset();
+				Animated.spring(
+					pan,
+					{
+						toValue: {x: 0, y: 0},
+						useNativeDriver: true
+					}
+					).start()
+        // pan.extractOffset();
       },
     }),
   ).current;
